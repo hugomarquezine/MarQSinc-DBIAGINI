@@ -1,12 +1,18 @@
 {
-  "name": "Dra.Thais - MarQ AI",
-  "short_name": "Dra Thais | MarQAI",
+  "name": "Clínica App Interativo",
+  "short_name": "Clínica App",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f8f7f4",
   "theme_color": "#008080",
   "orientation": "portrait-primary",
   "icons": [
+    {
+      "src": "images/logo-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
     {
       "src": "images/logo-192.png",
       "sizes": "192x192",

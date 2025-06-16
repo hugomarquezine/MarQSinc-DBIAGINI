@@ -8,11 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
+    <!-- AJUSTES PARA APP NO IOS \ ANDROID -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Clínica App">
+    <link rel="apple-touch-icon" href="images/logo-192.png">
 </head>
 <body class="body-dashboard">
 
-  <div class="dashboard-grid">
+  <div class="dashboard-grid-top">
     <header class="dashboard-header">
       <img src="images/logo.png" alt="Logo da Clínica" class="logo" />
       <h1>Olá novamente, <span id="patient-name-placeholder">Paciente</span>!</h1>
@@ -61,21 +66,16 @@
       </ul>
     </aside>
 
-    <section id="interest-section" class="interest-section hidden">
-      <h3>Fique a vontade para explorar novos procedimentos no mapa facial ou no chat IA</h3>
-      <ul id="interest-list"></ul>
-    </section>
-
     <nav class="bottom-nav">
         <a href="mapa.html" class="nav-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/></svg>
           <span>Mapa Facial</span>
         </a>
-        <a href="skincare.html" class="nav-item"> 
+        <a href="skincare.html" class="nav-item" id="nav-skincare-btn"> 
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-droplet-half" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.21.8C7.69.295 8.31.295 8.79.8l3.96 4.666A5 5 0 0 1 8 13.43a5 5 0 0 1-4.75-7.964zM8 12.333A4 4 0 0 0 11.166 8.5C11.166 6.5 9.5 5.25 8 4.333 6.5 5.25 4.834 6.5 4.834 8.5A4 4 0 0 0 8 12.333"/></svg>
           <span>Skincare</span>
         </a>
-        <a href="chat.html" class="nav-item">
+        <a href="chat.html" class="nav-item" id="nav-chat-btn">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-quote" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.504 7-5.5S11.996 3 8 3 1 5.504 1 8.5c0 1.578.543 3.023 1.482 4.105q.31.334.696.65Z"/><path d="M7.468 8.484c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135-.724-.405-.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213m4 0c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135-.724-.405-.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213"/></svg>
           <span>Chat IA</span>
         </a>
