@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica - Bem-vindo(a) de Volta!</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="selection-container">
+        <img src="images/logo.png" alt="Logo da Clínica" class="logo">
+        <h1>Bem-vindo(a) de Volta!</h1>
+        <p>Por favor, confirme seus dados para carregarmos sua sessão.</p>
+        <form id="returning-patient-form" style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+            <input type="text" id="returning-cpf" placeholder="Digite seu CPF" class="text-input" style="max-width: 400px;">
+            
+            <div id="gender-selection" style="display: flex; gap: 1rem;">
+                <button type="button" class="option-button" data-gender="feminino">Feminino</button>
+                <button type="button" class="option-button" data-gender="masculino">Masculino</button>
+            </div>
+
+            <button type="submit" id="submit-button" class="nav-button">Acessar</button>
+        </form>
+        <a href="selecao.html" style="display: block; margin-top: 2rem; color: #555;">Voltar</a>
+    </div>
+
+    <script>
+    (function() {
+        const form = document.getElementById('returning-patient-form');
+        const cpfInput = document.getElementById('returning-cpf');
+        const submitButton = document.getElementById('submit-button');
+        const genderButtons = document.querySelectorAll('#gender-selection .option-button');
+        let selectedGender = '';
+
+        // Lógica de seleção de gênero
+        genderButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                genderButtons.forEach(btn => btn.style.borderColor = '#ddd');
+                button.style.borderColor = '#008080';
+                selectedGender = button.dataset.gender;
+            });
+        });
+
+        // Envio do formulário
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const cpf = cpfInput.value.trim();
+
+            if (!cpf || !selectedGender) {
+                alert('Por favor, insira seu CPF e selecione o sexo.');
+                return;
+            }
+
+            submitButton.textContent = 'Buscando...';
+            submitButton.disabled = true;
+
+            const lookupWebhookURL = 'https://marqai-n8n-webhook.5ummqx.easypanel.host/webhook/buscar-paciente';
+
+            try {
+                const response = await fetch(lookupWebhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lookupValue: cpf })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro de rede: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('Resposta completa do n8n:', result);
+
+                // Verifica sucesso e patientId
+                if (result.success === true && result.patientId) {
+                    console.log('SUCESSO: Paciente encontrado! ID:', result.patientId);
+                    localStorage.setItem('patientId', result.patientId);
+                    localStorage.setItem('patientName', result.patientName);
+                    localStorage.setItem('patientGender', selectedGender);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    console.log('FALHA: CPF não encontrado na resposta do n8n.');
+                    alert('CPF não encontrado. Vamos criar um novo cadastro para você!');
+                    localStorage.setItem('cpf_temp', cpf);
+                    localStorage.setItem('patientGender_temp', selectedGender);
+                    window.location.href = 'anamnese.html';
+                }
+
+            } catch (error) {
+                console.error('ERRO CRÍTICO no processo de busca:', error);
+                alert('Ocorreu um erro de comunicação. Por favor, verifique o console (F12) para mais detalhes.');
+                submitButton.textContent = 'Acessar';
+                submitButton.disabled = false;
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

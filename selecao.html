@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica - Iniciar Atendimento</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="selection-container">
+        <img src="images/logo.png" alt="Logo da Clínica" class="logo">
+        <h1>Iniciar Atendimento</h1>
+        <p>Selecione o tipo de atendimento para o paciente.</p>
+        <div class="selection-buttons">
+            <button id="novo-paciente" class="selection-button">
+                <strong>Novo Paciente</strong>
+                <span>(Iniciar Anamnese Interativa)</span>
+            </button>
+            <button id="paciente-retornando" class="selection-button">
+                <strong>Já Sou Paciente</strong>
+                <span>(Ir para o Modo Descoberta)</span>
+            </button>
+        </div>
+        <button id="logout-button" class="logout-button">Sair</button>
+    </div>
+    <script>
+        document.getElementById('novo-paciente').addEventListener('click', () => {
+            window.location.href = 'anamnese.html';
+        });
+        document.getElementById('paciente-retornando').addEventListener('click', () => {
+            // MUDANÇA AQUI: Aponta para a nova página de identificação
+            window.location.href = 'retornando.html';
+        });
+        document.getElementById('logout-button').addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

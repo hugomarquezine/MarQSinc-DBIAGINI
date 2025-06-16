@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica - Sobre Nós</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body class="body-clinic">
+
+    <div class="clinic-page-container">
+        <header class="about-header">
+            <img src="images/logo.png" alt="Logo da Clínica" class="logo">
+            <h1>Conheça Nossa Essência</h1>
+        </header>
+
+        <main class="about-content">
+            <section class="profile-section">
+                <img src="images/foto-doutora.jpg" alt="Foto da Dra. [Nome]" class="profile-image">
+                <div class="profile-text">
+                    <h2>Sobre a Dra. Thais Akemi Yoshimoto</h2>
+                    <p class="credentials">CRM SP 184637 | RQE 97177</p>
+                    <p>Olá, meu nome é Thais Akemi Yoshimoto, sou Médica Dermatologista com Título de Especialista e Membro da Sociedade Brasileira de Dermatologia (SBD). Atualmente, sou preceptora de Cosmiatria na Residência em Dermatologia da Faculdade de Medicina do ABC (FMABC).</p>
+                </div>
+            </section>
+
+            <section class="clinic-section">
+                <h2>Nossa Clínica</h2>
+                <p>Priorizamos o cuidado global do paciente através de um atendimento humanizado e individualizado, garantindo que cada tratamento seja adaptado às necessidades e expectativas de cada pessoa. Acredito que um atendimento de qualidade deve combinar conhecimento técnico, empatia e atenção aos detalhes, sempre visando o bem-estar e a satisfação do paciente.</p>
+            </section>
+        </main>
+        
+        <section class="featured-content">
+            <h2>Conteúdos em Vídeo</h2>
+             <div class="video-wrapper">
+                <iframe id="featured-video" 
+                        src="https://www.youtube.com/embed/SEU_ID_DE_VIDEO_PRINCIPAL?autoplay=1&mute=1&controls=0&loop=1&playlist=SEU_ID_DE_VIDEO_PRINCIPAL1" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <div class="video-menu">
+             <h3>Mais Conteúdos</h3>
+            <ul>
+                <li><a href="#" class="video-link active" data-video-id="N71VOFJ4PZs">Volnewmer</a></li>
+                <li><a href="#" class="video-link" data-video-id="5DfF8LsosQw">Tecnologia e Inovação</a></li>
+                <li><a href="#" class="video-link" data-video-id="Fn3iR_RTd88">Cuidados com a Pele</a></li>
+
+            </ul>
+        </div>
+    </div>
+    
+    <nav class="bottom-nav">
+            <a href="mapa.html" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16"><path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/></svg>
+                <span>Mapa Facial</span>
+            </a>
+            <a href="skincare.html" class="nav-item"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-droplet-half" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.21.8C7.69.295 8.31.295 8.79.8l3.96 4.666A5 5 0 0 1 8 13.43a5 5 0 0 1-4.75-7.964zM8 12.333A4 4 0 0 0 11.166 8.5C11.166 6.5 9.5 5.25 8 4.333 6.5 5.25 4.834 6.5 4.834 8.5A4 4 0 0 0 8 12.333"/></svg>
+                <span>Skincare</span>
+            </a>
+            <a href="chat.html" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-quote" viewBox="0 0 16 16"><path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.504 7-5.5S11.996 3 8 3 1 5.504 1 8.5c0 1.578.543 3.023 1.482 4.105q.31.334.696.65Z"/><path d="M7.468 8.484c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135.724-.405.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213m4 0c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135-.724-.405.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213"/></svg>
+                <span>Chat IA</span>
+            </a>
+            <a href="clinica.html" class="nav-item active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16"><path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.867.953.55v-1.1zM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM13.25 7a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM13 5.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM5.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM5 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM5.25 7a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM5 5.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM1.634 1.85A.5.5 0 0 0 1.5 2.134V14.5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V2.134a.5.5 0 0 0-.134-.312l-6-5.5a.5.5 0 0 0-.732 0zM14 14.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V2.618l6-5.333 6 5.333z"/></svg>
+                <span>A Clínica</span>
+            </a>
+            <a href="#" id="end-session-button" class="nav-item"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
+                <span>Encerrar</span>
+            </a>
+        </nav>
+
+    <script src="js/clinica.js"></script>
+    <script src="js/main.js"></script> 
+</body>
+</html>
