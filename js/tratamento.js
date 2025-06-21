@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 interestButton.style.display = 'none';
             }
-
+            
             container.appendChild(cardClone);
         });
     } else {

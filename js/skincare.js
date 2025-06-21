@@ -1,4 +1,4 @@
-// js/skincare.js (Versão Sincronizada e Corrigida)
+// js/skincare.js (Versão com Filtros)
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('skincare-container');
@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wishlistKey = `wishlist_${patientId}`;
     let wishlist = [];
 
-    // Bloco de segurança para carregar a lista de desejos
+    // Carrega a wishlist salva localmente
     const storedWishlist = localStorage.getItem(wishlistKey);
     if (storedWishlist) {
         try {
@@ -19,17 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função para enviar o interesse para o n8n
+    // Estado inicial dos filtros
+    const activeFilters = {
+        target: 'rosto',
+        area: 'geral'
+    };
+
+    // --- FUNÇÕES ---
+
+    // Função para enviar interesse para o n8n (sem alterações)
     async function sendInterestToN8N(productName) {
         const webhookWishlistURL = 'https://marqai-n8n-webhook.5ummqx.easypanel.host/webhook/skincaredemov1';
         const payload = {
             patientId: patientId,
-            treatmentName: productName, // Enviamos como 'treatmentName' para o n8n tratar tudo igual
+            treatmentName: productName,
             timestamp: new Date().toISOString()
         };
-
-        console.log("Enviando interesse de SKINCARE para o n8n:", payload); // Log para depuração
-
         try {
             const response = await fetch(webhookWishlistURL, {
                 method: 'POST',
@@ -43,20 +48,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Itera e cria os cards de produtos
-    for (const categoryKey in dadosSkincare) {
-        const category = dadosSkincare[categoryKey];
-        
-        const categoryTitle = document.createElement('h2');
-        categoryTitle.className = 'treatment-header';
-        categoryTitle.textContent = category.titulo;
-        container.appendChild(categoryTitle);
+    // Função para renderizar os produtos na tela
+    function renderProducts() {
+        // 1. Limpa o container
+        container.innerHTML = '';
 
-        category.produtos.forEach(produto => {
+        // 2. Filtra os produtos com base nos filtros ativos
+        const filteredProducts = dadosSkincare.products.filter(produto => {
+            const targetMatch = produto.target === activeFilters.target;
+            const areaMatch = activeFilters.area === 'geral' || produto.area === activeFilters.area;
+            return targetMatch && areaMatch;
+        });
+        
+        // Se não houver produtos, mostra uma mensagem
+        if (filteredProducts.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #888;">Nenhum produto encontrado para esta seleção.</p>';
+            return;
+        }
+
+        // 3. Cria e adiciona os cards dos produtos filtrados
+        filteredProducts.forEach(produto => {
             const card = document.createElement('div');
             card.className = 'treatment-card';
 
-            // Preenche o card com as informações do produto
             card.innerHTML = `
                 <img src="${produto.imagem}" alt="${produto.nome}" class="treatment-image">
                 <div class="treatment-info">
@@ -73,14 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const interestButton = card.querySelector('.interest-button');
             const productName = produto.nome;
 
-            // Verifica se o item já está na wishlist para estilizar o botão
             if (wishlist.includes(productName)) {
                 interestButton.innerHTML = '❤️';
                 interestButton.classList.add('clicked');
                 interestButton.disabled = true;
             }
 
-            // Adiciona o evento de clique que envia os dados
             if (patientId) {
                 interestButton.addEventListener('click', async () => {
                     interestButton.textContent = '...';
@@ -111,4 +123,55 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(card);
         });
     }
+
+    // --- EVENT LISTENERS PARA OS FILTROS ---
+    const allFilterBtns = document.querySelectorAll('.filter-btn');
+    const areaFilterRosto = document.getElementById('area-filter-rosto');
+    const areaFilterCorpo = document.getElementById('area-filter-corpo');
+
+    allFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const group = btn.dataset.filterGroup; // 'target' ou 'area'
+            const value = btn.dataset.filterValue; // 'rosto', 'corpo', 'geral', 'olhos'...
+
+            // Atualiza o objeto de filtros ativos
+            activeFilters[group] = value;
+            
+            // Lógica para alternar os sub-filtros de área
+            if (group === 'target') {
+                if (value === 'rosto') {
+                    areaFilterRosto.classList.remove('hidden');
+                    areaFilterCorpo.classList.add('hidden');
+                } else {
+                    areaFilterRosto.classList.add('hidden');
+                    areaFilterCorpo.classList.remove('hidden');
+                }
+                // Reseta o filtro de área para 'geral' ao trocar de alvo
+                activeFilters.area = 'geral';
+            }
+
+            // Atualiza a classe 'active' em TODOS os botões
+            allFilterBtns.forEach(b => {
+                // Remove 'active' se o botão não corresponder aos filtros ativos
+                if (b.dataset.filterGroup === 'target' && b.dataset.filterValue !== activeFilters.target) {
+                    b.classList.remove('active');
+                }
+                if (b.dataset.filterGroup === 'area' && b.dataset.filterValue !== activeFilters.area) {
+                    b.classList.remove('active');
+                }
+                // Adiciona 'active' se o botão corresponder
+                if ((b.dataset.filterGroup === 'target' && b.dataset.filterValue === activeFilters.target) || 
+                    (b.dataset.filterGroup === 'area' && b.dataset.filterValue === activeFilters.area)) {
+                    b.classList.add('active');
+                }
+            });
+
+            // Re-renderiza os produtos com os novos filtros
+            renderProducts();
+        });
+    });
+
+    // --- INICIALIZAÇÃO ---
+    // Renderiza os produtos com o filtro inicial ('rosto', 'geral')
+    renderProducts();
 });

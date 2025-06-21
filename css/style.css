@@ -990,6 +990,45 @@ body {
     flex-shrink: 0;
 }
 
+/* --- ESTILOS PARA FILTROS DE SKINCARE --- */
+
+.filter-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-group {
+    background-color: #e9e9e9;
+    padding: 6px;
+    border-radius: 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas menores */
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s ease-in-out;
+}
+
+.filter-btn.active {
+    background-color: #ffffff;
+    color: #008080;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 /* --- CONTROLE DE VISIBILIDADE DOS BOTÕES DA NAV --- */
 
 /* Para esconder o botão do chat */

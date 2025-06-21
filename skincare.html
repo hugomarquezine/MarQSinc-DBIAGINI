@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- AJUSTES PARA APP NO IOS \ ANDROID -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -23,6 +22,25 @@
             <p>Cuide da sua pele em casa com os melhores produtos.</p>
         </header>
 
+        <div class="filter-container">
+            <div class="filter-group" id="target-filter">
+                <button class="filter-btn active" data-filter-group="target" data-filter-value="rosto">Rosto</button>
+                <button class="filter-btn" data-filter-group="target" data-filter-value="corpo">Corpo</button>
+            </div>
+            <div class="filter-group" id="area-filter-rosto">
+                <button class="filter-btn active" data-filter-group="area" data-filter-value="geral">Geral</button>
+                <button class="filter-btn" data-filter-group="area" data-filter-value="olhos">Olhos</button>
+                <button class="filter-btn" data-filter-group="area" data-filter-value="boca">Boca</button>
+                <button class="filter-btn" data-filter-group="area" data-filter-value="pescoco">Pescoço</button>
+            </div>
+            <div class="filter-group hidden" id="area-filter-corpo">
+                <button class="filter-btn active" data-filter-group="area" data-filter-value="geral">Geral</button>
+                <button class="filter-btn" data-filter-group="area" data-filter-value="pernas">Pernas</button>
+                <button class="filter-btn" data-filter-group="area" data-filter-value="bracos">Braços</button>
+                <button class="filter-btn" data-filter-group="area" data-filter-value="abdomen">Abdômen</button>
+                <button class="filter-btn" data-filter-group="area" data-filter-value="colo">Colo</button>
+            </div>
+        </div>
         <main id="skincare-container">
             </main>
     </div>
@@ -36,7 +54,7 @@
             <span>Skincare</span>
         </a>
         <a href="chat.html" class="nav-item" id="nav-chat-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-quote" viewBox="0 0 16 16"><path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.504 7-5.5S11.996 3 8 3 1 5.504 1 8.5c0 1.578.543 3.023 1.482 4.105q.31.334.696.65Z"/><path d="M7.468 8.484c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135-.724-.405-.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213m4 0c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135-.724-.405-.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-quote" viewBox="0 0 16 16"><path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.504 7-5.5S11.996 3 8 3 1 5.504 1 8.5c0 1.578.543 3.023 1.482 4.105q.31.334.696.65Z"/><path d="M7.468 8.484c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135.724-.405.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213m4 0c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135-.724-.405.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213"/></svg>
             <span>Chat IA</span>
         </a>
         <a href="clinica.html" class="nav-item">
