@@ -98,8 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
             curiosityButton.parentNode.replaceChild(newCuriosityBtn, curiosityButton);
 
             // “Sim, me incomoda”
-            newAnnoyanceBtn.addEventListener('click', () => {
-                sendAnnoyanceWebhook(fileName);
+            newAnnoyanceBtn.addEventListener('click', async () => { // "async" aqui
+                await sendAnnoyanceWebhook(fileName);                // "await" aqui
                 window.location.href = `tratamento.html?area=${fileName}&origin=${originPage}`;
                 hideModal();
             });
