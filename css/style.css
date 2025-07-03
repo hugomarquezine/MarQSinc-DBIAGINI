@@ -17,7 +17,7 @@ body {
 .login-container { padding: 2rem; max-width: 400px; }
 .pin-display { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
 .pin-dot { width: 20px; height: 20px; background-color: #ddd; border-radius: 50%; transition: background-color 0.2s; }
-.pin-dot.filled { background-color: #008080; }
+.pin-dot.filled { background-color: #DCB747; }
 .error-message { color: #d9534f; font-weight: 600; }
 /* Estilos do Teclado de PIN Corrigido */
 .keypad {
@@ -53,7 +53,7 @@ body {
 /* --- Tela de Seleção --- */
 .selection-container { padding: 2rem; }
 .selection-buttons { display: flex; gap: 2rem; margin-top: 2rem; }
-.selection-button { background-color: white; border: 2px solid #008080; border-radius: 15px; padding: 2rem; font-size: 1.5rem; cursor: pointer; width: 300px; transition: all 0.3s; }
+.selection-button { background-color: white; border: 2px solid #DCB747; border-radius: 15px; padding: 2rem; font-size: 1.5rem; cursor: pointer; width: 300px; transition: all 0.3s; }
 .selection-button span { font-size: 1rem; font-weight: 400; color: #555; display: block; margin-top: 0.5rem; }
 .selection-button:hover { background-color: #e6f2f2; transform: translateY(-5px); }
 .logout-button { margin-top: 3rem; background: none; border: none; color: #888; text-decoration: underline; cursor: pointer; }
@@ -61,17 +61,17 @@ body {
 /* --- Tela de Anamnese --- */
 .anamnese-container { width: 100%; max-width: 700px; padding: 2rem; }
 .progress-bar { width: 100%; height: 10px; background-color: #eee; border-radius: 5px; overflow: hidden; margin-bottom: 3rem; }
-.progress-bar-fill { width: 0%; height: 100%; background-color: #008080; transition: width 0.4s ease; }
+.progress-bar-fill { width: 0%; height: 100%; background-color: #DCB747; transition: width 0.4s ease; }
 .step { display: none; }
 .step.active { display: block; animation: fadeIn 0.5s; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
 .option-button, .nav-button { background-color: white; border: 2px solid #ddd; border-radius: 10px; padding: 1.5rem; font-size: 1.2rem; cursor: pointer; transition: all 0.2s; }
-.option-button:hover, .nav-button:hover { border-color: #008080; background-color: #e6f2f2; }
+.option-button:hover, .nav-button:hover { border-color: #DCB747; background-color: #e6f2f2; }
 .slider-container { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2rem; }
 .slider { width: 70%; }
 .text-input { width: 80%; padding: 1rem; font-size: 1.2rem; border-radius: 10px; border: 2px solid #ddd; margin-top: 1rem; }
-#finish-anamnese { background-color: #008080; color: white; border: none; margin-top: 2rem; }
+#finish-anamnese { background-color: #DCB747; color: white; border: none; margin-top: 2rem; }
 
 /* --- Tela do Mapa Facial (já criada) --- */
 .app-container { width: 100%; max-width: 900px; background-color: #ffffff; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
@@ -82,8 +82,8 @@ body {
 .title { font-size: 1.5rem; font-weight: 400; color: #555; }
 .face-map-container { position: relative; width: fit-content; margin: auto; }
 .face-image { display: block; max-width: 100%; border-radius: 15px; }
-.interactive-dot { position: absolute; width: 15px; height: 15px; background-color: rgba(0, 195, 202, 0.26); border: 2px solid white; border-radius: 50%; cursor: pointer; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; animation: pulse 2s infinite ease-in-out; }
-.interactive-dot:hover { transform: scale(1.3); box-shadow: 0 0 15px rgba(0, 128, 128, 0.7); animation-play-state: paused; }
+.interactive-dot { position: absolute; width: 15px; height: 15px; background-color: #e7b30567; border: 2px solid white; border-radius: 50%; cursor: pointer; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; animation: pulse 2s infinite ease-in-out; }
+.interactive-dot:hover { transform: scale(1.3); box-shadow: 0 0 15px rgba(187, 153, 1, 0.747); animation-play-state: paused; }
 
 /* --- Posições dos Pontos - Versão Dinâmica por Gênero --- */
 
@@ -141,7 +141,7 @@ body {
 .interactive-dot {
     transform: translateX(-50%);
 }
-@keyframes pulse { 0%   { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0.6); } 70%  { box-shadow: 0 0 0 12px rgba(0, 128, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); } }
+@keyframes pulse { 0%   { box-shadow: 0 0 0 0 rgba(128, 105, 0, 0.6); } 70%  { box-shadow: 0 0 0 12px rgba(0, 128, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); } }
 .bottom-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
 #nav-rosto { display: flex; justify-content: center; gap: 2rem; margin-top: 0rem; padding-top: 0.5rem; border-top: 1px solid #eee; }
 .nav-item { text-decoration: none; color: #888; font-size: 1.2rem; font-weight: 600; padding: 10px 20px; border-radius: 30px; transition: background-color 0.3s, color 0.3s; }
@@ -212,11 +212,11 @@ body {
 }
 
 .modal-button.primary {
-  background-color: #008080;
+  background-color: #9c7802;
   color: white;
 }
 .modal-button.primary:hover {
-    background-color: #005a5a;
+    background-color: #5c4600;
 }
 
 .modal-button.secondary {
@@ -270,7 +270,7 @@ body {
 
 .back-button {
   text-decoration: none;
-  color: #008080;
+  color: #DCB747;
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -305,7 +305,7 @@ body {
 .treatment-info h3 {
   margin-top: 0;
   font-size: 1.8rem;
-  color: #005a5a;
+  color: #5c4600;
 }
 
 .treatment-info p {
@@ -317,9 +317,10 @@ body {
   padding: 0;
 }
 
+/* para trocar a de um svg, é só alterar o codigo que vem após o %23 - %23 é # e 5c4600 é o valor hexadecimal da cor*/
 .treatment-benefits li {
   padding-left: 1.5em;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23008080" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235c4600" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>');
   background-repeat: no-repeat;
   background-position: left center;
   margin-bottom: 0.5rem;
@@ -327,7 +328,7 @@ body {
 
 .interest-button {
   margin-top: 1.5rem;
-  background-color: #008080;
+  background-color: #DCB747;
   color: white;
   border: none;
   padding: 12px 25px;
@@ -339,7 +340,7 @@ body {
 }
 
 .interest-button:hover {
-  background-color: #005a5a;
+  background-color: #5c4600;
 }
 
 /* --- Estilos da Página A Clínica --- */
@@ -456,7 +457,7 @@ body {
 }
 
 .user-message {
-  background-color: #008080;
+  background-color: #DCB747;
   color: white;
   border-top-right-radius: 5px;
   align-self: flex-end;
@@ -495,13 +496,13 @@ body {
   padding: 12px 18px;
   font-size: 1rem;
 }
-#message-input:focus { outline: none; border-color: #008080; }
+#message-input:focus { outline: none; border-color: #DCB747; }
 .chat-form button {
-  border: none; background-color: #008080; color: white; border-radius: 50%;
+  border: none; background-color: #DCB747; color: white; border-radius: 50%;
   width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center;
   transition: background-color 0.2s;
 }
-.chat-form button:hover { background-color: #005a5a; }
+.chat-form button:hover { background-color: #ac8b2a; }
 
 /* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
 /* Estas regras serão aplicadas em telas com largura máxima de 820px (como um iPad na vertical) */
@@ -575,7 +576,7 @@ body {
 
 /* Estilo para o botão "Tenho Interesse" / "amei ❤️"  durante o envio */
 .interest-button.sending {
-    background-color: #ffc107; /* Amarelo/Laranja de atenção */
+    background-color: #9e9c9c; /* Amarelo/Laranja de atenção */
     cursor: wait;
 }
 
@@ -667,7 +668,7 @@ body {
     font-weight: 600;
 }
 .video-menu li a:hover { background-color: #f0f2f5; }
-.video-menu li a.active { background-color: #e6f2f2; color: #008080; }
+.video-menu li a.active { background-color: #e6f2f2; color: #DCB747; }
 .interest-section { grid-area: interests; }
 .bottom-nav { grid-area: actions; } /* A barra de navegação entra na área "actions" */
 
@@ -810,11 +811,11 @@ body {
     border-radius: 10px;
     padding: 1rem 1.5rem;
     margin-bottom: 2rem;
-    border-left: 4px solid #008080;
+    border-left: 4px solid #DCB747;
 }
 .common-complaints h3 {
     margin-top: 0;
-    color: #005a5a;
+    color: #5c4600;
 }
 .common-complaints ul {
     list-style: none;
@@ -891,7 +892,7 @@ body {
 
 .selector-btn.active {
     background-color: #ffffff;
-    color: #008080;
+    color: #8a6b04;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -934,7 +935,7 @@ body {
 .zone-card-title {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #005a5a;
+    color: #5c4600;
 }
 
 /* =================================================================== */
@@ -1025,7 +1026,7 @@ body {
 
 .filter-btn.active {
     background-color: #ffffff;
-    color: #008080;
+    color: #DCB747;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
