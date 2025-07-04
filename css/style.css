@@ -7,7 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: auto;
   text-align: center;
 }
 .logo { height: 100px; margin-bottom: 1rem; }
@@ -828,6 +828,7 @@ body {
     display: block;
     height: auto;
     text-align: left;
+    padding-bottom: 80px;
 }
 
 .clinic-page-container {
@@ -983,7 +984,6 @@ body {
 }
 
 
-
 .zone-card {
     background-color: #fff;
     border-radius: 15px;
@@ -1014,6 +1014,7 @@ body {
 .body-map {
     display: flex;
     flex-direction: column;
+    top:0;
    
 }
 
