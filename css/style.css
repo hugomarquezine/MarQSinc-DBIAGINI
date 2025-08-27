@@ -7,7 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: auto;
+  min-height: 100vh;
   text-align: center;
   touch-action: manipulation;
 }
@@ -259,13 +259,17 @@ body {
   width: 100%;
   max-width: 900px;
   padding: 2rem;
-  text-align: left;
+  text-align: center;
+}
+
+.common-complaints {
+   text-align: left;
 }
 
 .treatment-header {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   border-bottom: 1px solid #eee;
   padding-bottom: 1.5rem;
   margin-bottom: 2rem;
@@ -397,7 +401,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  font-size: 0.9rem; /* Diminuímos um pouco a fonte */
+  font-size: 0.8rem; /* Diminuímos um pouco a fonte */
 }
 
 /* Responsividade para telas menores que 480px */
@@ -435,7 +439,6 @@ body {
   background-color: #f8f7f4;
   padding: 1rem; /* ADICIONADO: Cria uma borda interna de respiro */
   box-sizing: border-box; /* ADICIONADO: Garante que o padding não cause barras de rolagem */
-
 }
 .chat-wrapper {
   flex-grow: 1; /* Faz este container crescer e ocupar todo o espaço disponível */
@@ -723,15 +726,20 @@ body {
 
 /* Posiciona a barra de navegação DENTRO do grid, como um rodapé normal */
 .body-dashboard .bottom-nav {
-  grid-area: actions; /* Coloca a nav na área "actions" do grid */
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 1.5rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid #eee;
-  /* Removemos qualquer regra de position:fixed */
-  position: static; 
+    /*max-width: 900px;  Mantém a mesma largura do container */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 0px;
+/* NAV transparente e fixada no bottom - para pagina skincare */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.678); /* leve transparência */
+    backdrop-filter: blur(8px); /* aplica o blur */
+    -webkit-backdrop-filter: blur(8px); /* suporte para Safari */
+    border-top: 1px solid #ccc;
+    z-index: 1000;
 }
 
 /* Garante que os ITENS da barra de navegação fiquem com ícone e texto */
@@ -739,10 +747,27 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 0px;
   font-size: 0.9rem;
 }
 
+/* NAV pagina de tratamentos */
+.treatment-page .bottom-nav .nav-item {
+    /*max-width: 900px;  Mantém a mesma largura do container */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 0px;
+/* NAV transparente e fixada no bottom - para pagina skincare */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.678); /* leve transparência */
+    backdrop-filter: blur(8px); /* aplica o blur */
+    -webkit-backdrop-filter: blur(8px); /* suporte para Safari */
+    border-top: 1px solid #ccc;
+    z-index: 1000;
+}
 /* Responsividade APENAS para o dashboard */
 @media (max-width: 2000px) {
   .body-dashboard .dashboard-grid {
@@ -807,7 +832,7 @@ body {
     /*max-width: 900px;  Mantém a mesma largura do container */
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 20px;
+    padding: 10px 0px;
 /* NAV transparente e fixada no bottom - para pagina skincare */
     position: fixed;
     bottom: 0;
@@ -818,7 +843,6 @@ body {
     -webkit-backdrop-filter: blur(8px); /* suporte para Safari */
     border-top: 1px solid #ccc;
     z-index: 1000;
-
 }
 
 /* ======================================================= */
@@ -847,13 +871,13 @@ body {
     /*max-width: 900px;  Mantém a mesma largura do container */
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 20px;
-/* NAV transparente e fixada no bottom - para pagina clinica */
+    padding: 10px 0px;
+/* NAV transparente e fixada no bottom - para pagina skincare */
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.76); /* leve transparência */
+    background: rgba(255, 255, 255, 0.678); /* leve transparência */
     backdrop-filter: blur(8px); /* aplica o blur */
     -webkit-backdrop-filter: blur(8px); /* suporte para Safari */
     border-top: 1px solid #ccc;
@@ -1034,9 +1058,8 @@ body {
     position: static; /* Remove a necessidade de ser fixo, pois o body já organiza */
     flex-shrink: 0; /* Impede que a barra encolha */
     border-top: 1px solid #e0e0e0;
-    padding: 8px 0px 15px 0px;
-  
-}
+    padding: 10px ;
+    }
 
 /* --- Layout para Páginas de Tela Cheia (Retornando, Chat, etc.) --- */
 
@@ -1133,6 +1156,245 @@ body {
 /* Para esconder o botão do chat */
 #nav-chat-btn { display: none; }
 
-/* Para esconder o botão da skincare 
-#nav-skincare-btn { display: none; }*/
+/* Para esconder o botão da skincare */
+#nav-skincare-btn { display: none; }
 
+/* --- ESTILOS PARA PÁGINA DE CARDÁPIO --- */
+
+.skincare-container-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.cardapio-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.cardapio-image-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background-color: #f0f0f0;
+}
+
+.cardapio-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cardapio-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.cardapio-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.cardapio-description {
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+    color: #666;
+    flex-grow: 1;
+}
+
+.cardapio-options-placeholder {
+    display: none; /* Não precisamos mais mostrar isso */
+}
+
+.cardapio-select-button {
+    background-color: #DCB747;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: flex-start;
+}
+
+.cardapio-select-button:hover {
+    background-color: #5c4600;
+}
+
+
+/* --- ESTILOS PARA MODAL DE OPÇÕES DO CARDÁPIO --- */
+.option-group {
+    margin-bottom: 1.5rem;
+}
+
+.option-label {
+    display: block;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.75rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.radio-option label {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .skincare-container-grid {
+        grid-template-columns: 1fr;
+    }
+    .cardapio-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .cardapio-select-button {
+        align-self: center;
+        width: 100%;
+    }
+}
+
+/* --- ESTILOS PARA SEÇÃO DE PEDIDO ATUAL --- */
+
+.pedido-container {
+    background-color: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+    margin-bottom: 2rem;
+    border: 2px solid #DCB747;
+}
+
+.pedido-container h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+#pedido-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.pedido-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.pedido-item:last-child {
+    border-bottom: none;
+}
+
+.pedido-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pedido-item-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.pedido-item-options {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 4px;
+}
+
+.remover-item-btn {
+    background-color: #fceeee;
+    color: #d9534f;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-left: 1rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.remover-item-btn:hover {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+#enviar-pedido-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+/* --- ESTILOS PARA FILTROS DE CATEGORIA DO CARDÁPIO --- */
+
+.cardapio-filtros-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px; /* Espaço entre os botões */
+    margin-bottom: 2.5rem;
+    background-color: #f1f1f1; /* Fundo do contêiner */
+    padding: 8px; /* Espaçamento interno do contêiner */
+    border-radius: 12px; /* Bordas arredondadas no contêiner */
+    width: fit-content; /* Faz o contêiner se ajustar ao tamanho dos botões */
+    margin-left: auto; /* Centraliza o contêiner */
+    margin-right: auto; /* Centraliza o contêiner */
+}
+
+.filter-btn {
+    background-color: transparent; /* Botão sem fundo por padrão */
+    border: none;
+    border-radius: 8px; /* Bordas arredondadas do botão */
+    padding: 12px 28px; /* AUMENTAMOS O PADDING AQUI */
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.filter-btn:hover {
+    background-color: #e7e7e7;
+}
+
+.filter-btn.active {
+    background-color: #ffffff; /* Fundo branco quando ativo */
+    color: #DCB747; /* Cor do texto quando ativo */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Sombra para dar profundidade */
+}

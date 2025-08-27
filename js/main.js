@@ -58,7 +58,7 @@ if (endSessionButton) {
             // O resto da lógica continua igual
             console.log('Encerrando sessão e limpando todos os dados locais...');
             localStorage.clear(); 
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     });
 }
