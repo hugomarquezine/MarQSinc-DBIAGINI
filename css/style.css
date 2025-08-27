@@ -9,6 +9,7 @@ body {
   align-items: center;
   min-height: auto;
   text-align: center;
+  touch-action: manipulation;
 }
 .logo { height: 100px; margin-bottom: 1rem; }
 .hidden { display: none !important; }
@@ -434,6 +435,7 @@ body {
   background-color: #f8f7f4;
   padding: 1rem; /* ADICIONADO: Cria uma borda interna de respiro */
   box-sizing: border-box; /* ADICIONADO: Garante que o padding não cause barras de rolagem */
+
 }
 .chat-wrapper {
   flex-grow: 1; /* Faz este container crescer e ocupar todo o espaço disponível */
