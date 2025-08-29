@@ -10,16 +10,9 @@
 <body class="body-skincare">
 
     <div class="app-container">
-
         <header class="app-header">
             <img src="images/logo.png" alt="Logo da Clínica" class="logo">
         </header>
-
-        <div id="pedido-container" class="pedido-container hidden">
-            <h2>Meu Pedido</h2>
-            <ul id="pedido-lista"></ul>
-            <button id="enviar-pedido-btn" class="cardapio-select-button">Enviar Pedido para a Recepção</button>
-        </div>
 
         <div class="treatment-header" style="text-align: center; padding-bottom: 0;">
             <h1 id="treatment-main-title" style="margin-bottom: 0.5rem;">Nosso Cardápio</h1>
@@ -27,18 +20,25 @@
         </div>
 
         <div id="cardapio-filtros" class="cardapio-filtros-container"></div>
-
         <div id="cardapio-container" class="skincare-container-grid"></div>
+    </div>
 
-    </div> <div id="optionsModal" class="modal-overlay hidden">
+    <div id="pedido-detalhe-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <h2 id="modal-item-name" style="margin-bottom: 25px;">Nome do Item</h2>
-            <div id="modal-options-container"></div>
-            <button id="confirmSelectionButton" class="interest-button" style="width: 100%; margin-top: 20px;">Adicionar ao Pedido</button>
-            <button id="modal-close-btn" class="modal-button-close" style="margin-top: 15px;">Cancelar</button>
+            <h2 style="margin-bottom: 1.5rem;">Meu Pedido Detalhado</h2>
+            <ul id="pedido-detalhe-lista" class="pedido-detalhe-lista">
+                </ul>
+            <button id="fechar-modal-pedido-btn" class="modal-button-close" style="margin-top: 1.5rem;">Fechar</button>
         </div>
     </div>
 
+    <div id="pedido-resumo-bar" class="pedido-resumo-bar hidden">
+        <div class="resumo-info">
+            <span id="resumo-texto"></span>
+            <a href="#" id="visualizar-pedido-btn">Visualizar Pedido</a>
+        </div>
+        <button id="enviar-pedido-resumo-btn" class="enviar-pedido-btn">Enviar Pedido</button>
+    </div>
     <nav class="bottom-nav">
             <a href="mapa.html" class="nav-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16"><path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/></svg>

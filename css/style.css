@@ -333,22 +333,6 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.interest-button {
-  margin-top: 1.5rem;
-  background-color: #DCB747;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.interest-button:hover {
-  background-color: #5c4600;
-}
 
 /* --- Estilos da Página A Clínica --- */
 .about-page {
@@ -768,6 +752,23 @@ body {
     border-top: 1px solid #ccc;
     z-index: 1000;
 }
+
+.body-fullscreen .nav-item {
+    /*max-width: 900px;  Mantém a mesma largura do container */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 0px;
+/* NAV transparente e fixada no bottom - para pagina skincare */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.678); /* leve transparência */
+    backdrop-filter: blur(8px); /* aplica o blur */
+    -webkit-backdrop-filter: blur(8px); /* suporte para Safari */
+    border-top: 1px solid #ccc;
+    z-index: 1000;
+}
 /* Responsividade APENAS para o dashboard */
 @media (max-width: 2000px) {
   .body-dashboard .dashboard-grid {
@@ -1159,6 +1160,9 @@ body {
 /* Para esconder o botão da skincare */
 #nav-skincare-btn { display: none; }
 
+/* Para esconder o botão do cardapio 
+#nav-cardapio-btn { display: none; }*/
+
 /* --- ESTILOS PARA PÁGINA DE CARDÁPIO --- */
 
 .skincare-container-grid {
@@ -1173,15 +1177,15 @@ body {
     border-radius: 15px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.07);
     display: flex;
-    align-items: center;
+    align-items: top;
     padding: 1.5rem;
     gap: 1.5rem;
     text-align: left;
 }
 
 .cardapio-image-container {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     border-radius: 10px;
     flex-shrink: 0;
     background-color: #f0f0f0;
@@ -1198,7 +1202,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    height: 90%;
 }
 
 .cardapio-title {
@@ -1397,4 +1401,344 @@ body {
     background-color: #ffffff; /* Fundo branco quando ativo */
     color: #DCB747; /* Cor do texto quando ativo */
     box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Sombra para dar profundidade */
+}
+
+/* --- ESTILO PARA MENSAGEM INSTRUTIVA --- */
+
+.instructive-message {
+    background-color: #fdf8e8; /* Um tom de amarelo bem claro, relacionado à sua paleta */
+    border-left: 5px solid #DCB747; /* Borda lateral dourada para destaque */
+    padding: 15px 20px;
+    margin: 0 auto 2.5rem auto; /* Centraliza e adiciona margem inferior */
+    border-radius: 8px;
+    max-width: 90%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.instructive-message p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #5c4600; /* Cor do texto mais escura para boa legibilidade */
+    text-align: center;
+}
+
+.instructive-message p strong {
+    font-weight: 700;
+}
+
+/* --- ESTILOS PARA BOTÃO SAIBA MAIS E PÁGINA DE DETALHES --- */
+
+/* Ajuste no container de botões do card de tratamento */
+.treatment-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* --- ESTILO UNIFICADO PARA OS BOTÕES DE AÇÃO --- */
+
+/* Container que segura os botões */
+.treatment-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center; /* Garante o alinhamento vertical */
+}
+
+/* 1. Base de estilo COMUM para ambos os botões */
+.interest-button, .saiba-mais-button {
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid #DCB747; /* AMBOS terão a mesma borda */
+    box-sizing: border-box; /* Garante que o tamanho final seja o mesmo */
+}
+
+/* 2. Estilo específico para o botão "Amei" */
+.interest-button {
+  background-color: #DCB747;
+  color: white;
+}
+.interest-button:hover {
+  background-color: #b19138; /* Um hover um pouco mais sutil */
+  border-color: #b19138;
+}
+
+/* 3. Estilo específico para o botão "Saiba Mais" */
+.saiba-mais-button {
+    background-color: transparent;
+    color: #DCB747;
+}
+.saiba-mais-button:hover {
+    background-color: #DCB747;
+    color: white;
+}
+
+/* Estilos da página de detalhes */
+.body-fullscreen {
+    display: block;
+    height: auto;
+    background-color: #fff;
+}
+
+.detalhe-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.detalhe-voltar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+#detalhe-titulo {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #333;
+}
+
+
+.video-wrapper-detalhe {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção 16:9 */ 
+    height: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    background-color: #000;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.video-wrapper-detalhe iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.detalhe-descricao-container, .detalhe-galeria-container {
+    margin-bottom: 3rem;
+}
+
+.detalhe-descricao-container h2, .detalhe-galeria-container h2 {
+    font-size: 1.8rem;
+    border-bottom: 2px solid #DCB747;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#detalhe-descricao {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.galeria-grid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+
+
+/* --- ESTILOS CORRIGIDOS E FINAIS PARA AÇÕES DO CARD --- */
+
+/* 1. Garante que a coluna de informações ocupe todo o espaço vertical */
+.cardapio-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz esta coluna crescer para ocupar o espaço do card */
+}
+
+/* 2. Garante que a descrição cresça, empurrando as opções/ações para baixo */
+.cardapio-description {
+    flex-grow: 1;
+}
+
+/* 3. Container que segura as opções selecionáveis */
+.cardapio-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* 4. Estilos para os botões de opção (Gelada/Natural, etc.) */
+.option-choices {
+    display: flex;
+    gap: 0.5rem;
+    width: auto;
+    max-width: 400px;
+    flex-wrap: wrap;
+}
+.option-choice-btn {
+    flex-grow: 1;
+    background-color: #f1f1f1;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.option-choice-btn.active {
+    background-color: #fdf8e8;
+    border-color: #DCB747;
+    color: #5c4600;
+    font-weight: 600;
+}
+
+/* 5. Container que segura o botão Adicionar ou o Contador */
+.card-actions-container {
+    margin-top: auto; /* EMPURRA PARA O FUNDO DA COLUNA, GARANTINDO ALINHAMENTO VERTICAL */
+    padding-top: 0rem; /* Adiciona um respiro acima */
+    display: flex;
+    justify-content: flex-start; /* <<< MUDANÇA PRINCIPAL: Alinha à ESQUERDA */
+    align-items: center;
+    min-height: 44px;
+}
+
+/* 6. Estilo do botão "ADICIONAR" (sem alterações) */
+.add-to-order-button {
+    background-color: #DCB747;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: auto;
+}
+.add-to-order-button:hover {
+    background-color: #5c4600;
+}
+
+/* 7. Estilos do contador de quantidade (sem alterações) */
+.quantity-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.quantity-btn {
+    background-color: #f1f1f1;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    line-height: 32px;
+    transition: background-color 0.2s;
+}
+.quantity-btn:hover {
+    background-color: #e0e0e0;
+}
+.quantity-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    min-width: 25px;
+    text-align: center;
+}
+
+.pedido-resumo-bar {
+    position: fixed;
+    bottom: 100px; /* Posição acima da nav principal */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    box-sizing: border-box;
+    z-index: 999;
+    transition: transform 0.3s ease-in-out;
+}
+.pedido-resumo-bar.hidden {
+    transform: translateY(200%); /* Esconde a barra para baixo */
+}
+.resumo-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#resumo-texto {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+#visualizar-pedido-btn {
+    font-size: 0.9rem;
+    color: #DCB747;
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+}
+.enviar-pedido-btn {
+    background-color: #DCB747;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.enviar-pedido-btn:hover {
+    background-color: #5c4600;
+}
+
+/* --- ESTILOS PARA O MODAL DE DETALHES DO PEDIDO --- */
+.pedido-detalhe-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+/* Reutiliza o estilo de item que já tínhamos */
+.pedido-detalhe-lista .pedido-item {
+    text-align: left;
+}
+
+/* Garante que o conteúdo principal não fique escondido */
+.body-skincare {
+    padding-bottom: 150px; /* Aumenta o espaço no final da página */
+}
+
+.cardapio-options-container:empty {
+    /* Se o container de opções estiver vazio, remove a margem */
+    margin-bottom: 0;
 }

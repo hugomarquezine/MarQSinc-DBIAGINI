@@ -1,64 +1,126 @@
-// js/cardapio-conteudo.js
+// js/cardapio-conteudo.js (VERSÃO ATUALIZADA COM O NOVO CARDÁPIO)
 
 const dadosCardapio = {
-    // 1. Definimos as categorias
+    // 1. Definimos as novas categorias
     categorias: [
+        { id: 'todos', nome: 'Todos' },
+        //{ id: 'bebidas_quentes', nome: 'Bebidas Quentes' },
         { id: 'bebidas', nome: 'Bebidas' },
-        { id: 'snacks', nome: 'Snacks' }
-        // Adicione mais categorias aqui se precisar (ex: Doces)
+        { id: 'snacks', nome: 'Snacks' },
+        //{ id: 'frutas', nome: 'Frutas' }
     ],
 
-    // 2. Adicionamos a propriedade "categoriaId" em cada item
+    // 2. Lista de itens atualizada e organizada
     itens: [
+        // --- BEBIDAS QUENTES ---
         {
             id: 'cafe-expresso',
-            categoriaId: 'bebidas', // <-- Associado a 'Bebidas'
+            categoriaId: 'bebidas',
             nome: 'Café Expresso',
-            descricao: 'Grãos selecionados 100% arábica, resultando em um café de aroma intenso e sabor marcante.',
+            descricao: 'Café de grãos selecionados, forte e aromático.',
             imagem: 'images/cardapio-cafe.jpg',
             opcoes: [
-                { tipo: 'variedade', label: 'Escolha a variedade', valores: ['Tradicional', 'Descafeinado'] }
+                { tipo: 'variedade', label: 'Como você prefere?', valores: ['Com Açucar', 'Sem Açucar'] }
             ]
         },
         {
-            id: 'agua-saborizada',
-            categoriaId: 'bebidas', // <-- Associado a 'Bebidas'
-            nome: 'Água Saborizada',
-            descricao: 'Água mineral naturalmente saborizada com rodelas de limão siciliano e folhas de hortelã.',
+            id: 'cappuccino',
+            categoriaId: 'bebidas',
+            nome: 'Cappuccino',
+            descricao: 'Um clássico cremoso, feito com café expresso e leite vaporizado.',
+            imagem: 'images/cardapio-cappuccino.jpg', // Crie esta imagem
+            opcoes: [
+                { tipo: 'extra', label: 'Deseja um toque especial?', valores: ['Com Canela', 'Sem Canela'] }
+            ]
+        },
+        {
+            id: 'chocolate-quente',
+            categoriaId: 'bebidas',
+            nome: 'Chocolate Quente',
+            descricao: 'Chocolate cremoso e aveludado, perfeito para aquecer e adoçar o dia.',
+            imagem: 'images/cardapio-chocolate.jpg', // Crie esta imagem
+            opcoes: [
+                { tipo: 'extra', label: 'Deseja um toque especial?', valores: ['Com Canela', 'Sem Canela'] }]
+        },
+
+        // --- BEBIDAS FRIAS ---
+        {
+            id: 'agua-sem-gas',
+            categoriaId: 'bebidas',
+            nome: 'Água Sem Gás',
+            descricao: 'Água mineral natural, pura e refrescante.',
             imagem: 'images/cardapio-agua.jpg',
             opcoes: [
-                { tipo: 'temperatura', label: 'Como você prefere?', valores: ['Gelada', 'Temperatura Ambiente'] }
+                { tipo: 'temperatura', label: 'Como você prefere?', valores: ['Gelada', 'Natural'] }
             ]
         },
         {
-            id: 'cha-especial',
-            categoriaId: 'bebidas', // <-- Associado a 'Bebidas'
-            nome: 'Chá Especial',
-            descricao: 'Uma infusão relaxante de camomila, erva-cidreira e um toque de maracujá.',
-            imagem: 'images/cardapio-cha.jpg',
+            id: 'agua-com-gas',
+            categoriaId: 'bebidas',
+            nome: 'Água Com Gás',
+            descricao: 'Água mineral gaseificada naturalmente.',
+            imagem: 'images/cardapio-agua-gas.jpg', // Crie esta imagem
             opcoes: [
-                 { tipo: 'adocante', label: 'Deseja adoçar?', valores: ['Sem Açúcar', 'Com Açúcar', 'Com Adoçante'] }
+                { tipo: 'temperatura', label: 'Como você prefere?', valores: ['Gelada', 'Natural'] }
             ]
         },
         {
-            id: 'mix-de-castanhas',
-            categoriaId: 'snacks', // <-- Associado a 'Snacks'
-            nome: 'Mix de Castanhas',
-            descricao: 'Uma seleção saudável de castanhas, nozes e amêndoas, perfeitas para um lanche rápido.',
-            imagem: 'images/cardapio-castanhas.jpg', // Lembre-se de adicionar a imagem
+            id: 'suco-natural',
+            categoriaId: 'bebidas',
+            nome: 'Suco Natural',
+            descricao: 'Suco de laranja feito na hora, sem conservantes.',
+            imagem: 'images/cardapio-suco.jpg', // Crie esta imagem
             opcoes: [
-                 { tipo: 'sal', label: 'Preferência', valores: ['Com Sal', 'Sem Sal'] }
+                { tipo: 'adocante', label: 'Deseja adoçar?', valores: ['Sem Açúcar', 'Com Açúcar'] }
             ]
         },
-        {
-            id: 'cookies-artesanais',
-            categoriaId: 'snacks', // <-- Associado a 'Snacks'
-            nome: 'Cookies Artesanais',
-            descricao: 'Cookies com gotas de chocolate belga, feitos artesanalmente na clínica.',
-            imagem: 'images/cardapio-cookies.jpg', // Lembre-se de adicionar a imagem
+         {
+            id: 'refrigerante',
+            categoriaId: 'bebidas',
+            nome: 'Refrigerante',
+            descricao: 'Coca-Cola em lata, 350ml.',
+            imagem: 'images/cardapio-refrigerante.jpg', // Crie esta imagem
             opcoes: [
-                 { tipo: 'sabor', label: 'Sabor', valores: ['Chocolate', 'Baunilha'] }
+                { tipo: 'variedade', label: 'Qual você prefere?', valores: ['Tradicional', 'Zero Açúcar'] }
             ]
+        },
+
+        // --- SNACKS ---
+        {
+            id: 'bolo-do-dia',
+            categoriaId: 'snacks',
+            nome: 'Bolo',
+            descricao: 'Uma fatia de bolo caseiro, consulte o sabor do dia.',
+            imagem: 'images/cardapio-bolo.jpg', // Crie esta imagem
+            opcoes: []
+        },
+        {
+            id: 'mix-de-nuts',
+            categoriaId: 'snacks',
+            nome: 'Mix de Nuts',
+            descricao: 'Uma seleção cuidadosa de amêndoas, amendoins, castanhas e uvas passas.',
+            imagem: 'images/cardapio-castanhas.jpg',
+            opcoes: []
+        },
+                {
+            id: 'chocolate',
+            categoriaId: 'snacks',
+            nome: 'Chocolate',
+            descricao: 'Chocolate em barra',
+            imagem: 'images/chocolate.jpg',
+            opcoes: [
+                {tipo: 'variedade', label: 'Qual você prefere?', valores: ['Ao Leite', '70% Cacau']}
+            ]
+        },
+
+        // --- FRUTAS ---
+        {
+            id: 'maca',
+            categoriaId: 'snacks',
+            nome: 'Maçã',
+            descricao: 'Uma maçã fresca e crocante, uma opção leve e saudável.',
+            imagem: 'images/cardapio-maca.jpg', // Crie esta imagem
+            opcoes: []
         }
     ]
 };

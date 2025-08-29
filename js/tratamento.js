@@ -141,6 +141,43 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 interestButton.style.display = 'none';
             }
+                        
+            // ==========================================================
+            //           INÍCIO DO CÓDIGO "SAIBA MAIS"
+            // ==========================================================
+                    
+            // Pega o container de informações do card que já foi criado
+            const treatmentInfo = cardClone.querySelector('.treatment-info');
+                    
+            // Cria um container para os botões, se ainda não existir
+            // Se você já criou um container para o botão "Amei", pode pular esta parte
+            let buttonsContainer = treatmentInfo.querySelector('.treatment-buttons');
+            if (!buttonsContainer) {
+                buttonsContainer = document.createElement('div');
+                buttonsContainer.className = 'treatment-buttons';
+                // Se o botão Amei já existe, mova-o para dentro deste container
+                const existingInterestButton = treatmentInfo.querySelector('.interest-button');
+                if (existingInterestButton) {
+                    buttonsContainer.appendChild(existingInterestButton);
+                }
+                treatmentInfo.appendChild(buttonsContainer);
+            }
+            
+            
+            // Cria o botão "Saiba Mais", mas SÓ se o tratamento tiver um 'id' e 'detalhes'
+            if (tratamento.id && tratamento.detalhes) {
+                const saibaMaisButton = document.createElement('a');
+                saibaMaisButton.className = 'saiba-mais-button';
+                saibaMaisButton.href = `procedimento-detalhe.html?id=${tratamento.id}`;
+                saibaMaisButton.textContent = 'Saiba Mais';
+                
+                // Adiciona o novo botão ao container
+                buttonsContainer.appendChild(saibaMaisButton);
+            }
+            
+            // ==========================================================
+            //            FIM DO CÓDIGO "SAIBA MAIS"
+            // ==========================================================
             
             container.appendChild(cardClone);
         });
