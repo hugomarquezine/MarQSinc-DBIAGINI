@@ -1157,11 +1157,11 @@ body {
 /* Para esconder o botão do chat */
 #nav-chat-btn { display: none; }
 
-/* Para esconder o botão da skincare */
-#nav-skincare-btn { display: none; }
+/* Para esconder o botão da skincare 
+#nav-skincare-btn { display: none; }*/
 
-/* Para esconder o botão do cardapio 
-#nav-cardapio-btn { display: none; }*/
+/* Para esconder o botão do cardapio */
+#nav-cardapio-btn { display: none; }
 
 /* --- ESTILOS PARA PÁGINA DE CARDÁPIO --- */
 
