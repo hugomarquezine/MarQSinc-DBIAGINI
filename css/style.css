@@ -1,4 +1,7 @@
 /* --- Estilos Globais --- */
+html {
+  font-size: clamp(16px, 2.2vw, 20px);
+}
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -10,8 +13,17 @@ body {
   min-height: 100vh;
   text-align: center;
   touch-action: manipulation;
+  line-height: 1.6;
 }
-.logo { height: 100px; margin-bottom: 1rem; }
+.logo { 
+  height: 80px; 
+  margin-bottom: 1rem; 
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+.logo.loaded { 
+  opacity: 1; 
+}
 .hidden { display: none !important; }
 
 /* --- Tela de Login --- */
@@ -102,6 +114,7 @@ body {
 .gender-female .dot-orelhas  { top: 42.3%; left: 74.2%; }
 
 
+
 /* Posições para o Rosto Masculino (VOCÊ PRECISA AJUSTAR ESTES VALORES!) */
 /* Eu coloquei valores de exemplo, mas você precisará ajustá-los. */
 .gender-male .dot-testa     { top: 25%; left: 50%; }
@@ -119,24 +132,32 @@ body {
 /* --- Posições dos Pontos - Corpo (Adicione e ajuste) --- */
 
 /* Posições para o Corpo Feminino */
-.gender-female .dot-colo { top: 6.3%; left: 77.9%; }
-.gender-female .dot-abdomen { top: 17.4%; left: 17.2%; }
-.gender-female .dot-bracos { top: 18%; left: 84.3%; }
-.gender-female .dot-maos { top: 43.4%; left: 79%; }
-.gender-female .dot-pernas { top: 61.3%; left: 79.7%; }
-.gender-female .dot-pes { top: 84.6%; left: 79.7%; }
-.gender-female .dot-costas { top: 8.9%; left: 74.5%; }
-.gender-female .dot-gluteos { top: 40.3%; left: 75.4%; }
+.gender-female .dot-colo {top: 6.3%; left: 50.9%;}
+.gender-female .dot-abdomen {top: 26.4%; left: 50.8%;}
+.gender-female .dot-bracos {top: 18%; left: 62.3%;}
+.gender-female .dot-maos {top: 43.4%;left: 65%;}
+.gender-female .dot-pernas {top: 61.3%; left: 54.7%;}
+.gender-female .dot-pes {top: 93.6%; left: 52.7%;}
+
+.gender-female .dot-costas {top: 8.9%; left: 50%;}
+.gender-female .dot-gluteos {top: 40.3%; left: 43.4%;}
+.gender-female .dot-banana {top: 45.7%; left: 54%;}
+.gender-female .dot-flancos {top: 28%; left: 57%;}
+.gender-female .dot-culote {top: 39%; left: 61.4%;}
 
 /* Posições para o Corpo Masculino (AJUSTE ESTES VALORES!) */
-.gender-male .dot-colo { top: 7%; left: 78.3%; }
-.gender-male .dot-abdomen { top: 16.3%; left: 15.5%; }
-.gender-male .dot-bracos { top: 23.4%; left: 89%; }
-.gender-male .dot-maos { top: 43.4%; left: 82%; }
-.gender-male .dot-pernas { top: 59.1%; left: 81.3%; }
-.gender-male .dot-pes { top: 83.7%; left: 87.7%; }
-.gender-male .dot-costas { top: 10.6%; left: 75%; }
-.gender-male .dot-gluteos { top: 39.6%; left: 77.8%; }
+.gender-male .dot-colo { top: 7%; left: 50.7%; }
+.gender-male .dot-abdomen {top: 26.3%; left: 50.7%;}
+.gender-male .dot-bracos {top: 24.4%; left: 68%;}
+.gender-male .dot-maos {top: 43.4%; left: 67%;}
+.gender-male .dot-pernas {top: 59.1%; left: 58.3%;}
+.gender-male .dot-pes {top: 91.7%; left: 61.7%;}
+
+.gender-male .dot-costas {top: 7.6%; left: 50.6%;}
+.gender-male .dot-gluteos {top: 38.1%; left: 44.8%;}
+.gender-male .dot-banana {top: 45%;left: 55%;}
+.gender-male .dot-flancos {top: 28%; left: 59%;}
+.gender-male .dot-culote { top: 38%; left: 62%;}
 
 /* Regra geral para centralizar todos os pontos horizontalmente */
 .interactive-dot {
@@ -271,19 +292,54 @@ body {
   flex-direction: column;
   align-items: center;
   border-bottom: 1px solid #eee;
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.8rem;
 }
 
-.back-button {
+.treatment-info h3{
+  margin: 0;
+  font-size: 1.8rem;
+  color: #5c4600;
+}
+
+.treatment-info h4{
+margin: 0;
+color: #5c4600;
+}
+
+.treatment-benefits {
+margin: 0;
+color: #5c4600;
+}
+
+.treatment-buttons{
+margin: 0;
+color: #5c4600;
+}
+
+/* BOTÃO VOLTAR PROCEDIMENTOS > MAPAS */
+.back-button{
   text-decoration: none;
-  color: #DCB747;
+  color: #000000;
   font-weight: 600;
-  margin-bottom: 1rem;
+  padding: 6px 15px 6px 15px;
+  border-radius: 8px;
+  background-color: #e9e8e8;
+  stroke: #FFFFFF;
+}
+
+.back-button-fixed{
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #e9e8e8;
+  stroke: #FFFFFF;
 }
 
 .treatment-header h1 {
-  margin: 0;
+  margin-top: 0rem;
   font-size: 2.5rem;
   color: #333;
 }
@@ -348,24 +404,68 @@ body {
 .about-header h1 {
   font-size: 2.5rem;
 }
+.about-subtitle {
+  color: #6b6b6b;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
 .profile-section {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
   margin-bottom: 2rem;
 }
+
+.profile-card {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  background: linear-gradient(180deg, #fffaf0 0%, #ffffff 60%);
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+  padding: 1.5rem;
+}
+
+.profile-photo { text-align: center; }
 .profile-image {
-  width: 250px;
-  height: 250px;
+  width: 230px;
+  height: 230px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.1), 0 0 0 4px rgba(220,183,71,0.08);
+  border: 2px solid #DCB747;
 }
-.profile-text h2 { font-size: 2rem; margin-top: 0; align: left }
-.profile-text .credentials { align: left; font-style: italic; color: #777; margin-top: -10px; margin-bottom: 10px;}
-.profile-text p { text-align: left;; line-height: 1.2; }
+.profile-text h2 { font-size: 2rem; margin-top: 0; text-align: left }
+.profile-info h2 { font-size: 1.8rem; margin: 0 0 .5rem 0; }
+.profile-text .credentials { text-align: left; font-style: italic; color: #777; margin-top: -10px; margin-bottom: 10px;}
+.profile-text p { text-align: left;; line-height: 1.6; }
 .profile-text p.credentials { text-align: center;; line-height: 1.2; }
+
+/* Lista estilizada do perfil */
+.profile-list {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.2rem;
+  text-align: left;
+  color: #4a4a4a;
+}
+.profile-list li {
+  margin: 0.25rem 0;
+}
+
+.badge-row {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: .25rem;
+  justify-content: center;
+}
+.badge {
+  background: #f7f3e6;
+  color: #5c4600;
+  border: 1px solid #e8ddbe;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 600;
+}
 
 .clinic-section {
   background-color: #fff;
@@ -378,6 +478,40 @@ body {
   border-radius: 0px;
 }
 .clinic-section h2 { text-align: center; }
+
+/* Diferenciais (cards) */
+.highlights-section {
+  margin-top: 2rem;
+}
+.highlights-section h2 {
+  text-align: center;
+}
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.highlight-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+  text-align: left;
+}
+.highlight-icon {
+  font-size: 1.5rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.highlight-card h3 {
+  margin: 0.25rem 0 0.5rem 0;
+  color: #5c4600;
+}
+.highlight-card p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
 
 /* --- Estilos da Nova Barra de Navegação --- */
 .bottom-nav .nav-item {
@@ -537,16 +671,11 @@ body {
       padding: 1.5rem;
   }
 
-  /* Página "A Clínica": empilha a foto sobre o texto */
-  .profile-section {
-      flex-direction: column; /* Muda a direção de lado-a-lado para cima-e-baixo */
-      text-align: center;
-  }
-
-  .profile-image {
-      width: 200px; /* Diminui um pouco a foto */
-      height: 200px;
-  }
+  /* Página "A Clínica": card empilha conteúdo */
+  .profile-card { grid-template-columns: 1fr; text-align: center; }
+  .profile-info h2 { text-align: center; }
+  .profile-text p, .profile-list { text-align: left; }
+  .profile-image { width: 200px; height: 200px; margin: 0 auto; }
 
   /* Página de Tratamento: empilha a imagem sobre o texto */
   .treatment-card {
@@ -867,6 +996,33 @@ body {
     gap: 1rem; /* Espaço entre as seções */
 }
 
+/* Ajustes específicos para a página da clínica: logo maior e topo mais justo */
+.body-clinic .clinic-page-container {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.body-clinic .about-header {
+    padding: 30px 20px 5px 20px;
+    margin: 0;
+    text-align: center;
+}
+
+.body-clinic .about-header .logo {
+    height: 90px;
+    margin: 0 0 5px 0;
+}
+
+/* Reduz espaçamento entre título e subtítulo em clinica.html */
+.body-clinic .about-header h1 {
+    margin: 4px 0 4px 0;
+}
+.body-clinic .about-header .about-subtitle {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #666;
+}
+
 /* Garante que a barra de navegação nesta página apareça no final, sem ser fixa */
 .body-clinic .bottom-nav {
     /*max-width: 900px;  Mantém a mesma largura do container */
@@ -890,7 +1046,7 @@ body {
     background-color: #f7f7f7;
     border-radius: 10px;
     padding: 1rem 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     border-left: 4px solid #DCB747;
 }
 .common-complaints h3 {
@@ -1061,6 +1217,124 @@ body {
     border-top: 1px solid #e0e0e0;
     padding: 10px ;
     }
+
+/* NAV fixo para páginas de mapa */
+.body-map .fixed-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid #e0e0e0;
+    z-index: 1000;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Adiciona padding-bottom ao container principal para compensar o nav fixo */
+.body-map .app-container-mapa,
+.body-map .app-container {
+    padding-bottom: 80px;
+}
+
+/* Reduz padding superior especificamente no corpo.html */
+.body-map .app-container-corpo {
+    padding-top: 0;
+}
+
+/* Ajustes específicos para páginas de mapa */
+.body-map .app-container-mapa {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.body-map .app-header {
+    padding: 0 20px 5px 20px;
+    margin: 0;
+}
+
+.body-map .app-header .logo {
+    height: 90px;
+    margin: 0 0 5px 0;
+}
+
+.body-map .app-header .title {
+    font-size: 1.5rem;
+    margin: 5px 0;
+    line-height: 1.3;
+}
+
+/* Ajustes específicos para seleção do rosto */
+.selecao-rosto .app-container-mapa {
+    padding-top: 15px;
+}
+
+.selecao-rosto .app-header .logo {
+    height: 90px;
+    margin: 0 0 5px 0;
+}
+
+/* Reduzir espaçamento entre view-selector e imagens */
+.body-map .view-selector-mapa,
+.body-map .selectors-wrapper {
+    margin-bottom: 10px;
+}
+
+/* Padronização de header e logo para páginas comuns (skincare, cardápio, etc.) */
+.body-skincare .app-header {
+    padding: 0 20px 5px 20px;
+    margin: 0;
+    text-align: center;
+}
+
+.body-skincare .app-header .logo {
+    height: 90px;
+    margin: 0 0 12px 0;
+}
+
+/* Padroniza títulos e subtítulos superiores (skincare, mapa, corpo) */
+.body-skincare .app-header .title,
+.body-map .app-header .title {
+    margin: 2px 0 4px 0; /* menos espaço para parecer mais com subtítulo */
+}
+
+.body-skincare .app-header p,
+.body-map .app-header p {
+    margin: 0 0 8px 0; /* reduz o espaço abaixo do texto de apoio */
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Título em semibold somente no skincare (não altera mapa/corpo) */
+.body-skincare .app-header .title {
+    font-weight: 600;
+}
+
+/* Cardápio usa um header secundário, padronizamos também */
+.treatment-header h1 {
+    margin: 12px 0 4px 0 !important; /* reduz padding/margem para título compacto */
+}
+.treatment-header p {
+    margin: 0 0 10px 0 !important;
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Cardápio herda o mesmo padrão visual de skincare */
+body.body-skincare .app-header .logo {
+    height: 90px;
+}
+
+/* Título semibold no Cardápio, igual ao skincare */
+.treatment-header h1 {
+    font-weight: 600;
+}
+
+.body-map .map-content {
+    margin-top: 5px;
+}
+
 
 /* --- Layout para Páginas de Tela Cheia (Retornando, Chat, etc.) --- */
 
@@ -1409,9 +1683,9 @@ body {
     background-color: #fdf8e8; /* Um tom de amarelo bem claro, relacionado à sua paleta */
     border-left: 5px solid #DCB747; /* Borda lateral dourada para destaque */
     padding: 15px 20px;
-    margin: 0 auto 2.5rem auto; /* Centraliza e adiciona margem inferior */
+    margin-bottom: 1rem; /* Centraliza e adiciona margem inferior */
     border-radius: 8px;
-    max-width: 90%;
+    max-width: 95%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 
@@ -1459,6 +1733,8 @@ body {
     transition: all 0.2s ease-in-out;
     border: 2px solid #DCB747; /* AMBOS terão a mesma borda */
     box-sizing: border-box; /* Garante que o tamanho final seja o mesmo */
+    margin-top: 0.6rem;
+    color: #5c4600;
 }
 
 /* 2. Estilo específico para o botão "Amei" */
@@ -1741,4 +2017,424 @@ body {
 .cardapio-options-container:empty {
     /* Se o container de opções estiver vazio, remove a margem */
     margin-bottom: 0;
+}
+
+/* --- Estilos para Anamnese Completa --- */
+.anamnese-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--cor-primaria, #DCB747);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.step h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: var(--cor-primaria, #DCB747);
+}
+
+textarea.text-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Estilos específicos para campo de data */
+.date-input {
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+}
+
+.date-input:hover {
+  background-color: #f0f0f0;
+  border-color: var(--cor-primaria, #DCB747);
+}
+
+.date-input:focus {
+  background-color: #fff;
+  border-color: var(--cor-primaria, #DCB747);
+  box-shadow: 0 0 0 3px rgba(220, 183, 71, 0.1);
+}
+
+/* Container para o campo de data lado a lado */
+.date-input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.date-label-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  min-width: fit-content;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+}
+
+/* Melhoria para tablets - campo de data mais visível */
+@media (max-width: 1024px) {
+  .date-input {
+    font-size: 18px;
+    padding: 16px;
+    min-height: 50px;
+  }
+  
+  .date-label-text {
+    font-size: 18px;
+    padding: 16px;
+  }
+}
+
+.nav-button {
+  background-color: var(--cor-primaria, #DCB747);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.nav-button:hover {
+  background-color: #c4a542;
+}
+
+.nav-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Estilos para grupos de perguntas */
+.question-group {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.question-group p {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.radio-group input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cor-primaria, #DCB747);
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.checkbox-group label:hover {
+  background-color: #f8f9fa;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cor-primaria, #DCB747);
+}
+
+/* Responsividade para anamnese */
+@media (max-width: 600px) {
+  .anamnese-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .radio-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Estilos para seleção de áreas --- */
+.selected-area-tag {
+    display: inline-block;
+    background-color: var(--cor-primaria);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    margin: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.selected-areas {
+    margin: 15px 0;
+    padding: 0 20px;
+}
+
+.selected-areas h3 {
+    margin-bottom: 10px;
+    color: var(--cor-primaria);
+    font-size: 18px;
+}
+
+.selected-areas-list {
+    min-height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-selection {
+    color: #999;
+    font-style: italic;
+}
+
+.navigation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.navigation-buttons-horizontal {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 15px 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-button.secondary {
+    background-color: transparent;
+    color: var(--cor-primaria);
+    border: 2px solid var(--cor-primaria);
+}
+
+.nav-button.secondary:hover {
+    background-color: var(--cor-primaria);
+    color: white;
+}
+
+.nav-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Botões menores para seleção */
+.nav-button-small {
+    background-color: var(--cor-primaria);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    text-align: center;
+}
+
+.nav-button-small:hover {
+    background-color: var(--cor-secundaria, #c4a85a);
+    transform: translateY(-2px);
+}
+
+.nav-button-small.secondary {
+    background-color: transparent;
+    color: var(--cor-primaria);
+    border: 2px solid var(--cor-primaria);
+}
+
+.nav-button-small.secondary:hover {
+    background-color: var(--cor-primaria);
+    color: white;
+}
+
+.nav-button-small:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Destaque para áreas selecionadas nos mapas */
+.interactive-dot.selected-highlight {
+    background-color: var(--cor-primaria) !important;
+    border: 3px solid #fff !important;
+    box-shadow: 0 0 15px rgba(220, 183, 71, 0.6) !important;
+    animation: pulse-selected 2s infinite;
+}
+
+@keyframes pulse-selected {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Estilos para pontos selecionados na tela de seleção */
+.interactive-dot.selected {
+    background-color: #28a745 !important; /* Verde para indicar selecionado */
+    border: 3px solid #fff !important;
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.8) !important;
+    transform: scale(1.05); /* Crescimento mais sutil */
+}
+
+/* Estilos para pontos não selecionados na tela de seleção */
+.selecao-rosto .interactive-dot:not(.selected),
+.selecao-corpo .interactive-dot:not(.selected) {
+    background-color: #706f6f !important; /* Cinza para não selecionados */
+    border: 3px solid #ffffff !important;
+    opacity: 0.6; /* Menos opacidade */
+    animation: pulse-gray 2s infinite ease-in-out; /* Animação mais sutil */
+}
+
+/* Animação para pontos não selecionados */
+@keyframes pulse-gray {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(153, 153, 153, 0.3); 
+    }
+    70% { 
+        box-shadow: 0 0 0 8px rgba(153, 153, 153, 0); 
+    }
+    100% { 
+        box-shadow: 0 0 0 0 rgba(153, 153, 153, 0); 
+    }
+}
+
+/* Hover para pontos não selecionados */
+.selecao-rosto .interactive-dot:not(.selected):hover,
+.selecao-corpo .interactive-dot:not(.selected):hover {
+    opacity: 0.8; /* Aumenta opacidade no hover */
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(153, 153, 153, 0.5);
+    animation-play-state: paused;
+}
+
+/* Estilos para pontos não selecionados nos mapas (mapa.html e corpo.html) */
+.interactive-dot.not-selected {
+    background-color: #888888 !important; /* Cinza para não selecionados */
+    border: 3px solid #ffffff !important;
+    opacity: 0.6; /* Menos opacidade */
+    animation: pulse-gray 2s infinite ease-in-out; /* Animação mais sutil */
+}
+
+/* Hover para pontos não selecionados nos mapas */
+.interactive-dot.not-selected:hover {
+    opacity: 0.8; /* Aumenta opacidade no hover */
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(112, 111, 111, 0.5);
+    animation-play-state: paused;
+}
+
+/* Estilos para subtítulo */
+.subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* Ajustes de tipografia para tablets (768–1180px) */
+@media (min-width: 768px) and (max-width: 1180px) {
+  .title, .treatment-header h1, .about-header h1 {
+    font-size: 2rem;
+  }
+  .profile-text h2, .treatment-info h3 {
+    font-size: 1.7rem;
+  }
+  .bottom-nav .nav-item {
+    font-size: 0.95rem;
+  }
+  .cardapio-title {
+    font-size: 1.6rem;
+  }
+  #detalhe-titulo {
+    font-size: 3rem;
+  }
 }

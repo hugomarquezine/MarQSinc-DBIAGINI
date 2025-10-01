@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Sistema SaaS Clínica</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .admin-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .admin-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        .admin-card h3 {
+            color: #008080;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-online { background-color: #4CAF50; }
+        .status-offline { background-color: #f44336; }
+        .status-warning { background-color: #ff9800; }
+        .config-section {
+            margin-bottom: 2rem;
+        }
+        .config-section h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #008080;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #008080;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .log-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem;
+            border-radius: 4px;
+        }
+        .log-info { background: #e3f2fd; }
+        .log-warning { background: #fff3e0; }
+        .log-error { background: #ffebee; }
+        
+        /* Estilos para autenticação */
+        .login-container {
+            max-width: 400px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .login-form input {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .login-form button {
+            background: #008080;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background: #006666;
+        }
+        .login-form button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .error-message {
+            color: #f44336;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #ffebee;
+            border-radius: 4px;
+        }
+        .admin-info {
+            background: #e8f5e8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .admin-info h4 {
+            color: #008080;
+            margin: 0 0 0.5rem 0;
+        }
+        .admin-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .logout-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        .logout-btn:hover {
+            background: #d32f2f;
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: #008080;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        .role-super-admin { background: #9c27b0; }
+        .role-admin { background: #008080; }
+        .role-manager { background: #ff9800; }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login (inicialmente visível) -->
+    <div id="login-screen" class="login-container">
+        <img src="images/logo-marq.png" alt="Logo da MarQ" class="logo" style="width: 80px; height: 80px;">
+        <h1>Acesso Administrativo</h1>
+        <p>Digite suas credenciais para acessar o painel</p>
+        
+        <form id="admin-login-form" class="login-form">
+            <input type="email" id="admin-email" placeholder="E-mail" required>
+            <input type="password" id="admin-password" placeholder="Senha" required>
+            <button type="submit" id="login-btn">Entrar</button>
+        </form>
+        
+        <div id="login-error" class="error-message" style="display: none;"></div>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; text-align: left;">
+            <h4>🔐 Login igual ao app normal</h4>
+            <p>Use as mesmas credenciais do login principal.</p>
+            <p style="color: #666; font-size: 0.8rem; margin-top: 1rem;">
+                O admin usa o mesmo fluxo: autentica no Supabase e busca dados da clínica.
+            </p>
+        </div>
+    </div>
+
+    <!-- Conteúdo Administrativo (inicialmente oculto) -->
+    <div id="admin-content" style="display: none;">
+        <div class="admin-container">
+            <div class="admin-header">
+                <img src="images/logo-marq.png" alt="Logo da MarQ" class="logo" style="width: 80px; height: 80px;">
+                <h1>Painel Administrativo</h1>
+                <p>Sistema SaaS - Clínica Interativa</p>
+                
+                <!-- Informações do Admin Logado -->
+                <div class="admin-info">
+                    <h4>👤 Administrador Logado</h4>
+                    <p id="admin-session-info">Carregando informações...</p>
+                    <button class="logout-btn" onclick="logoutAdmin()">Sair</button>
+                </div>
+            </div>
+
+            <div class="admin-grid">
+                <!-- Status do Sistema -->
+                <div class="admin-card">
+                    <h3>Status do Sistema</h3>
+                    <div class="config-section">
+                        <h4>Provedor de Dados</h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="data-provider-toggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span id="provider-status">Webhook</span>
+                    </div>
+                    <div class="config-section">
+                        <h4>Conectividade</h4>
+                        <p><span class="status-indicator status-offline" id="webhook-status"></span>Webhook</p>
+                        <p><span class="status-indicator status-offline" id="supabase-status"></span>Supabase</p>
+                    </div>
+                    <button class="nav-button" onclick="testConnections()">Testar Conexões</button>
+                    <div class="config-section" style="margin-top: 1rem;">
+                        <h4>Fila Offline</h4>
+                        <p>Eventos pendentes: <strong id="offline-queue-count">0</strong></p>
+                        <button class="nav-button" onclick="clearOfflineQueue()">Limpar fila offline</button>
+                    </div>
+                </div>
+
+                <!-- Estatísticas -->
+                <div class="admin-card">
+                    <h3>Estatísticas</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-pacientes">0</div>
+                            <div class="stat-label">Pacientes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-clinicas">0</div>
+                            <div class="stat-label">Clínicas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-sessoes">0</div>
+                            <div class="stat-label">Sessões Hoje</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-interacoes">0</div>
+                            <div class="stat-label">Interações</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sistema de Cotas -->
+                <div class="admin-card">
+                    <h3>Sistema de Cotas</h3>
+                    <div class="config-section">
+                        <h4>Clínica Atual</h4>
+                        <input type="number" id="clinica-id-input" placeholder="ID da Clínica" class="text-input" style="margin-bottom: 1rem;">
+                        <button class="nav-button" onclick="loadQuotaStats()">Carregar Estatísticas</button>
+                    </div>
+                    <div id="quota-stats" style="margin-top: 1rem;">
+                        <p>Digite o ID da clínica para ver as estatísticas de cota.</p>
+                    </div>
+                </div>
+
+                <!-- Configurações -->
+                <div class="admin-card">
+                    <h3>Configurações</h3>
+                    <div class="config-section">
+                        <h4>Fallback Automático</h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="fallback-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>Ativado</span>
+                    </div>
+                    <div class="config-section">
+                        <h4>Logs Detalhados</h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="logs-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>Ativado</span>
+                    </div>
+                    <button class="nav-button" onclick="saveConfig()">Salvar Configurações</button>
+                </div>
+
+                <!-- Logs do Sistema -->
+                <div class="admin-card" style="grid-column: 1 / -1;">
+                    <h3>Logs do Sistema</h3>
+                    <div class="log-container" id="log-container">
+                        <div class="log-entry log-info">Sistema inicializado</div>
+                    </div>
+                    <button class="nav-button" onclick="clearLogs()" style="margin-top: 1rem;">Limpar Logs</button>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="index.html" class="nav-button" style="display: inline-block;">Voltar ao App</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/supabase-client.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/data-service.js"></script>
+    <script src="js/quota-service.js"></script>
+    <script>
+        // Sistema de Autenticação Administrativo via Supabase
+        class AdminAuth {
+            constructor() {
+                this.sessionKey = 'admin_session';
+                this.sessionTimeout = 24 * 60 * 60 * 1000; // 24 horas
+                this.requiredRoles = ['super_admin', 'admin', 'manager']; // Roles que podem acessar
+            }
+            
+            async login(email, password) {
+                try {
+                    if (!window.supabase) {
+                        return { success: false, message: 'Supabase não inicializado' };
+                    }
+                    
+                    // 1. Autentica via Supabase Auth (igual ao app normal)
+                    const { data: authData, error: authError } = await window.supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+                    
+                    if (authError) {
+                        return { success: false, message: 'Credenciais inválidas' };
+                    }
+                    
+                    // 2. Busca dados da clínica (igual ao app normal)
+                    const { data: clinicaData, error: clinicaError } = await window.supabase
+                        .from('clinicas')
+                        .select(`
+                            id,
+                            nome_clinica,
+                            logo_url,
+                            cor_primaria,
+                            planos ( nome, permite_personalizacao_visual )
+                        `)
+                        .limit(1).single();
+                    
+                    if (clinicaError) {
+                        await window.supabase.auth.signOut();
+                        return { success: false, message: 'Erro ao carregar dados da clínica' };
+                    }
+                    
+                    // 3. Cria sessão admin (similar ao app normal)
+                    const session = {
+                        userId: authData.user.id,
+                        email: email,
+                        nome: 'Administrador',
+                        clinicaId: clinicaData.id,
+                        clinicaNome: clinicaData.nome_clinica,
+                        timestamp: Date.now(),
+                        token: authData.session.access_token
+                    };
+                    
+                    localStorage.setItem(this.sessionKey, JSON.stringify(session));
+                    
+                    return { 
+                        success: true, 
+                        message: 'Login realizado com sucesso!',
+                        user: session
+                    };
+                    
+                } catch (error) {
+                    console.error('Erro no login:', error);
+                    return { success: false, message: 'Erro interno do servidor' };
+                }
+            }
+            
+            async logout() {
+                try {
+                    // Faz logout do Supabase Auth
+                    if (window.supabase) {
+                        await window.supabase.auth.signOut();
+                    }
+                    
+                    // Remove sessão local
+                    localStorage.removeItem(this.sessionKey);
+                    
+                    return { success: true, message: 'Logout realizado com sucesso!' };
+                } catch (error) {
+                    console.error('Erro no logout:', error);
+                    return { success: false, message: 'Erro ao fazer logout' };
+                }
+            }
+            
+            isLoggedIn() {
+                const session = this.getSession();
+                if (!session) return false;
+                
+                // Verifica se a sessão não expirou
+                if (Date.now() - session.timestamp > this.sessionTimeout) {
+                    this.logout();
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            getSession() {
+                try {
+                    const sessionData = localStorage.getItem(this.sessionKey);
+                    return sessionData ? JSON.parse(sessionData) : null;
+                } catch (error) {
+                    console.error('Erro ao obter sessão:', error);
+                    return null;
+                }
+            }
+            
+            getSessionInfo() {
+                const session = this.getSession();
+                if (!session) return null;
+                
+                const loginTime = new Date(session.timestamp).toLocaleString('pt-BR');
+                const age = Date.now() - session.timestamp;
+                const hours = Math.floor(age / (1000 * 60 * 60));
+                const minutes = Math.floor((age % (1000 * 60 * 60)) / (1000 * 60));
+                
+                return {
+                    nome: session.nome,
+                    email: session.email,
+                    clinica: session.clinicaNome,
+                    loginTime: loginTime,
+                    sessionAge: hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`
+                };
+            }
+        }
+        
+        // Cria instância global
+        window.adminAuth = new AdminAuth();
+        
+        // Função de login
+        async function loginAdmin() {
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('login-error');
+            const loginBtn = document.getElementById('login-btn');
+            
+            // Desabilita botão durante login
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Entrando...';
+            errorDiv.style.display = 'none';
+            
+            try {
+                const result = await window.adminAuth.login(email, password);
+                
+                if (result.success) {
+                    showAdminContent();
+                    updateAdminInfo();
+                    addLog(`Admin logado: ${result.user.nome} (${result.user.email})`, 'info');
+                } else {
+                    errorDiv.textContent = result.message;
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Erro inesperado. Tente novamente.';
+                errorDiv.style.display = 'block';
+                addLog('Erro no login: ' + error.message, 'error');
+            } finally {
+                // Reabilita botão
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Entrar';
+            }
+        }
+        
+        // Função de logout
+        async function logoutAdmin() {
+            try {
+                await window.adminAuth.logout();
+                showLoginScreen();
+                addLog('Admin deslogado', 'info');
+            } catch (error) {
+                console.error('Erro no logout:', error);
+                // Mesmo com erro, mostra tela de login
+                showLoginScreen();
+            }
+        }
+        
+        // Mostra tela de login
+        function showLoginScreen() {
+            document.getElementById('login-screen').style.display = 'block';
+            document.getElementById('admin-content').style.display = 'none';
+        }
+        
+        // Mostra conteúdo administrativo
+        function showAdminContent() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('admin-content').style.display = 'block';
+        }
+        
+        // Atualiza informações do admin
+        function updateAdminInfo() {
+            const sessionInfo = window.adminAuth.getSessionInfo();
+            if (sessionInfo) {
+                document.getElementById('admin-session-info').innerHTML = `
+                    <strong>${sessionInfo.nome}</strong> 
+                    <span class="role-badge role-admin">ADMIN</span><br>
+                    <small>${sessionInfo.email}</small><br>
+                    <small>Clínica: ${sessionInfo.clinica}</small><br>
+                    <small>Login: ${sessionInfo.loginTime} | Sessão: ${sessionInfo.sessionAge}</small>
+                `;
+            }
+        }
+        
+        // Inicialização do painel admin
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se já está logado
+            if (window.adminAuth.isLoggedIn()) {
+                showAdminContent();
+                updateAdminInfo();
+                initializeAdmin();
+                loadStats();
+                testConnections();
+                refreshOfflineQueueCount();
+            } else {
+                showLoginScreen();
+            }
+            
+            // Event listener para o formulário de login
+            document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                loginAdmin();
+            });
+
+            // Atualiza contador da fila quando voltar online
+            window.addEventListener('online', refreshOfflineQueueCount);
+            // Atualiza contador de tempos em tempos
+            setInterval(refreshOfflineQueueCount, 5000);
+        });
+
+        function initializeAdmin() {
+            const config = window.appConfig.getConfig();
+            
+            // Configura o toggle do provedor de dados
+            const providerToggle = document.getElementById('data-provider-toggle');
+            providerToggle.checked = config.useSupabase;
+            updateProviderStatus();
+            
+            // Configura o toggle de fallback
+            const fallbackToggle = document.getElementById('fallback-toggle');
+            fallbackToggle.checked = config.fallback.enableFallback;
+            
+            // Event listeners
+            providerToggle.addEventListener('change', function() {
+                window.appConfig.toggleDataProvider();
+                updateProviderStatus();
+                addLog('Provedor de dados alterado para: ' + (this.checked ? 'Supabase' : 'Webhook'), 'info');
+            });
+            
+            fallbackToggle.addEventListener('change', function() {
+                window.appConfig.updateConfig('fallback', { 
+                    ...config.fallback, 
+                    enableFallback: this.checked 
+                });
+                addLog('Fallback automático ' + (this.checked ? 'ativado' : 'desativado'), 'info');
+            });
+        }
+
+        function updateProviderStatus() {
+            const config = window.appConfig.getConfig();
+            const statusElement = document.getElementById('provider-status');
+            statusElement.textContent = config.useSupabase ? 'Supabase' : 'Webhook';
+        }
+
+        async function testConnections() {
+            addLog('Testando conexões...', 'info');
+            
+            try {
+                const result = await window.dataService.testConnection();
+                
+                // Atualiza status dos indicadores
+                const webhookStatus = document.getElementById('webhook-status');
+                const supabaseStatus = document.getElementById('supabase-status');
+                
+                if (result.provider === 'webhook') {
+                    webhookStatus.className = result.success ? 'status-indicator status-online' : 'status-indicator status-error';
+                    supabaseStatus.className = 'status-indicator status-warning';
+                } else {
+                    supabaseStatus.className = result.success ? 'status-indicator status-online' : 'status-indicator status-error';
+                    webhookStatus.className = 'status-indicator status-warning';
+                }
+                
+                addLog(`Teste de conexão: ${result.success ? 'Sucesso' : 'Falha'} (${result.provider})`, 
+                       result.success ? 'info' : 'error');
+                
+            } catch (error) {
+                addLog('Erro ao testar conexões: ' + error.message, 'error');
+            }
+        }
+
+        async function loadStats() {
+            try {
+                const config = window.appConfig.getConfig();
+                
+                if (config.useSupabase && window.supabase) {
+                    // Carrega estatísticas do Supabase usando o novo schema
+                    const [pacientesResult, clinicasResult, interacoesResult] = await Promise.all([
+                        window.supabase.from('patients').select('id', { count: 'exact' }),
+                        window.supabase.from('clinicas').select('id', { count: 'exact' }),
+                        window.supabase.from('patient_interactions').select('id', { count: 'exact' })
+                            .gte('created_at', new Date().toISOString().split('T')[0])
+                    ]);
+                    
+                    document.getElementById('total-pacientes').textContent = pacientesResult.count || 0;
+                    document.getElementById('total-clinicas').textContent = clinicasResult.count || 0;
+                    document.getElementById('total-sessoes').textContent = interacoesResult.count || 0;
+                    document.getElementById('total-interacoes').textContent = interacoesResult.count || 0;
+                    
+                    addLog('Estatísticas carregadas do Supabase (novo schema)', 'info');
+                } else {
+                    addLog('Estatísticas não disponíveis (modo webhook)', 'warning');
+                }
+                
+            } catch (error) {
+                addLog('Erro ao carregar estatísticas: ' + error.message, 'error');
+            }
+        }
+
+        function saveConfig() {
+            const config = window.appConfig.getConfig();
+            window.appConfig.saveConfig();
+            addLog('Configurações salvas com sucesso', 'info');
+        }
+
+        function addLog(message, type = 'info') {
+            const logContainer = document.getElementById('log-container');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            // Limita a 100 entradas
+            while (logContainer.children.length > 100) {
+                logContainer.removeChild(logContainer.firstChild);
+            }
+        }
+
+        // ====== Fila Offline: utilitários no Admin ======
+        function getOfflineQueueCount() {
+            try {
+                const raw = localStorage.getItem('offline_event_queue_v1');
+                if (!raw) return 0;
+                const list = JSON.parse(raw) || [];
+                return Array.isArray(list) ? list.length : 0;
+            } catch (_) { return 0; }
+        }
+
+        function refreshOfflineQueueCount() {
+            const el = document.getElementById('offline-queue-count');
+            if (el) el.textContent = getOfflineQueueCount();
+        }
+
+        function clearOfflineQueue() {
+            try {
+                localStorage.removeItem('offline_event_queue_v1');
+                refreshOfflineQueueCount();
+                addLog('Fila offline limpa manualmente', 'info');
+                alert('Fila offline limpa com sucesso.');
+            } catch (e) {
+                addLog('Erro ao limpar fila offline: ' + e.message, 'error');
+                alert('Erro ao limpar fila offline.');
+            }
+        }
+
+        function clearLogs() {
+            const logContainer = document.getElementById('log-container');
+            logContainer.innerHTML = '<div class="log-entry log-info">Logs limpos</div>';
+        }
+
+        async function loadQuotaStats() {
+            const clinicaId = document.getElementById('clinica-id-input').value;
+            const quotaStatsContainer = document.getElementById('quota-stats');
+            
+            if (!clinicaId) {
+                quotaStatsContainer.innerHTML = '<p style="color: #f44336;">Por favor, digite o ID da clínica.</p>';
+                return;
+            }
+            
+            quotaStatsContainer.innerHTML = '<p>Carregando estatísticas...</p>';
+            
+            try {
+                const stats = await window.quotaService.getQuotaStats(parseInt(clinicaId));
+                
+                if (!stats) {
+                    quotaStatsContainer.innerHTML = '<p style="color: #f44336;">Erro ao carregar estatísticas da clínica.</p>';
+                    return;
+                }
+                
+                const progressPercent = (stats.usoAtual.usado / stats.usoAtual.limite) * 100;
+                const progressColor = progressPercent > 80 ? '#f44336' : progressPercent > 60 ? '#ff9800' : '#4CAF50';
+                
+                quotaStatsContainer.innerHTML = `
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                        <h4>${stats.clinica.nome}</h4>
+                        <p><strong>Status:</strong> ${stats.clinica.status}</p>
+                        <p><strong>Plano:</strong> ${stats.plano.nome}</p>
+                        
+                        <div style="margin: 1rem 0;">
+                            <h5>Uso Mensal (${new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })})</h5>
+                            <div style="background: #e0e0e0; border-radius: 4px; height: 20px; margin: 0.5rem 0;">
+                                <div style="background: ${progressColor}; height: 100%; width: ${Math.min(progressPercent, 100)}%; border-radius: 4px; transition: width 0.3s;"></div>
+                            </div>
+                            <p><strong>${stats.usoAtual.usado}</strong> de <strong>${stats.usoAtual.limite}</strong> submissões</p>
+                            <p><strong>Restante:</strong> ${stats.usoAtual.restante}</p>
+                        </div>
+                        
+                        <div style="margin: 1rem 0;">
+                            <h5>Histórico (últimos 6 meses)</h5>
+                            <div style="max-height: 200px; overflow-y: auto;">
+                                ${stats.historico.map(h => `
+                                    <div style="display: flex; justify-content: space-between; padding: 0.25rem 0; border-bottom: 1px solid #eee;">
+                                        <span>${new Date(h.periodo).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })}</span>
+                                        <span><strong>${h.submissoes_realizadas}</strong> submissões</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                addLog(`Estatísticas de cota carregadas para clínica ${clinicaId}`, 'info');
+                
+            } catch (error) {
+                quotaStatsContainer.innerHTML = `<p style="color: #f44336;">Erro: ${error.message}</p>`;
+                addLog(`Erro ao carregar estatísticas de cota: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA PARA PREENCHER A PÁGINA ---
     const params = new URLSearchParams(window.location.search);
     const tratamentoId = params.get('id');
+    const procKeyParam = (params.get('proc') || '').toLowerCase();
 
     function encontrarTratamento(id) {
         for (const areaKey in dadosClinica) {
@@ -25,16 +26,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tratamento = encontrarTratamento(tratamentoId);
 
-    if (tratamento && tratamento.detalhes) {
-        const detalhes = tratamento.detalhes;
-        
-        tituloEl.textContent = tratamento.nome;
-        descricaoEl.textContent = detalhes.descricaoLonga;
+    // Tenta resolver chave genérica por parâmetro ou pelo nome do tratamento
+    let genericKey = procKeyParam;
+    if (!genericKey && tratamento?.nome && window.resolveProcedureKeyFromName) {
+        genericKey = window.resolveProcedureKeyFromName(tratamento.nome);
+    }
+
+    // Se existir conteúdo genérico para a chave, prioriza-o; senão usa detalhes específicos
+    const generic = (window.genericProcedures && genericKey) ? window.genericProcedures[genericKey] : null;
+    // Preferimos conteúdo ESPECÍFICO DA ÁREA quando existir; caso contrário, caímos no genérico
+    const detalhes = (tratamento && tratamento.detalhes) || generic || null;
+
+    if (detalhes) {
+        // Título: se estamos usando o genérico, usa o título genérico; senão, o nome do tratamento
+        tituloEl.textContent = (detalhes === generic ? (generic?.titulo || 'Procedimento') : (tratamento?.nome || 'Procedimento'));
+        descricaoEl.textContent = detalhes.descricaoLonga || '';
 
         if (detalhes.videoUrl) {
             try {
                 const videoUrl = new URL(detalhes.videoUrl);
-                videoUrl.searchParams.set('controls', '1'); 
+                videoUrl.searchParams.set('controls', '1');
                 videoContainerEl.innerHTML = `<iframe src="${videoUrl.href}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             } catch (e) {
                 videoContainerEl.style.display = 'none';
@@ -44,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         galeriaEl.innerHTML = '';
-        detalhes.galeriaImagens.forEach(imgUrl => {
+        (detalhes.galeriaImagens || []).forEach(imgUrl => {
             const img = document.createElement('img');
             img.src = imgUrl;
-            img.alt = `Imagem do procedimento ${tratamento.nome}`;
+            img.alt = `Imagem do procedimento ${generic?.titulo || tratamento?.nome || ''}`;
             galeriaEl.appendChild(img);
         });
     } else {

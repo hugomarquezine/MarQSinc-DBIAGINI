@@ -1,21 +1,75 @@
 // js/corpo.js ou js/corpo-superior.js (VERSÃO FINAL E CORRIGIDA)
 
+// Funções de webhook removidas
+
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- LÓGICA PARA FOCAR APENAS NAS ÁREAS SELECIONADAS ---
+    function updateMapWithSelectedAreas() {
+        const allSelectedAreas = JSON.parse(localStorage.getItem('allSelectedAreas') || '[]');
+        const bodySelectedAreas = allSelectedAreas.filter(area => area.type === 'body');
+        
+        // Se há áreas selecionadas, mostra todas mas destaca apenas as selecionadas
+        if (bodySelectedAreas.length > 0) {
+            const allDots = document.querySelectorAll('.interactive-dot');
+            allDots.forEach(dot => {
+                const fileName = dot.getAttribute('data-filename');
+                const isSelected = bodySelectedAreas.some(area => area.filename === fileName);
+                
+                if (!isSelected) {
+                    // Mantém o ponto visível mas cinza (não selecionado)
+                    dot.classList.remove('selected-highlight');
+                    dot.classList.add('not-selected');
+                } else {
+                    // Destaca as áreas selecionadas
+                    dot.classList.add('selected-highlight');
+                    dot.classList.remove('not-selected');
+                }
+            });
+            
+            // Atualiza o título para indicar foco nas áreas selecionadas
+            const title = document.querySelector('.title');
+            if (title) {
+                title.textContent = 'Explore as áreas que você selecionou';
+            }
+        }
+    }
+
+    // Executa a atualização inicial
+    updateMapWithSelectedAreas();
+
+    // Listener para detectar mudanças no localStorage
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'allSelectedAreas') {
+            // Recarrega a página para aplicar as mudanças
+            window.location.reload();
+        }
+    });
+
+    // Listener para detectar mudanças quando a página ganha foco
+    window.addEventListener('focus', () => {
+        updateMapWithSelectedAreas();
+    });
+
+    // Listener para evento customizado de atualização
+    window.addEventListener('areasUpdated', () => {
+        updateMapWithSelectedAreas();
+    });
+    
     // --- LÓGICA DE TROCA DE IMAGEM POR GÊNERO ---
-    const patientGender = localStorage.getItem('patientGender');
+    const patientGender = (localStorage.getItem('currentPatientGender') || localStorage.getItem('patientGender') || '').toLowerCase();
     const frontImage = document.getElementById('body-front-image');
     const backImage = document.getElementById('body-back-image');
     const bodyContainers = document.querySelectorAll('.body-part-container');
 
     if (frontImage && backImage && bodyContainers.length > 0) {
         if (patientGender === 'masculino') {
-            frontImage.src = 'images/corpo-frente-masculino.jpg';
-            backImage.src = 'images/corpo-costas-masculino.jpg';
+            frontImage.src = 'images/corpo/corpo-frente-masculino.webp';
+            backImage.src = 'images/corpo/corpo-costas-masculino.webp';
             bodyContainers.forEach(container => container.classList.add('gender-male'));
         } else {
-            frontImage.src = 'images/corpo-frente-feminino.jpg';
-            backImage.src = 'images/corpo-costas-feminino.jpg';
+            frontImage.src = 'images/corpo/corpo-frente-feminino.webp';
+            backImage.src = 'images/corpo/corpo-costas-feminino.webp';
             bodyContainers.forEach(container => container.classList.add('gender-female'));
         }
     }
@@ -40,95 +94,32 @@ document.addEventListener('DOMContentLoaded', () => {
             backContent.classList.add('active');
             frontContent.classList.remove('active');
         });
+
+        // Respeita a URL: se vier com view=posterior, inicia na vista posterior
+        const params = new URLSearchParams(window.location.search);
+        const view = params.get('view');
+        if (view === 'posterior') {
+            // espelha a lógica do clique no botão de posterior
+            showBackBtn.classList.add('active');
+            showFrontBtn.classList.remove('active');
+            backContent.classList.add('active');
+            frontContent.classList.remove('active');
+        }
     }
     
-    // --- LÓGICA DO MODAL INTELIGENTE E DOS PONTOS ---
-    const modal = document.getElementById('custom-modal');
-    if (modal) {
-        const modalTitle        = document.getElementById('modal-title');
-        const annoyanceButton   = document.getElementById('modal-annoyance-btn');
-        const curiosityButton   = document.getElementById('modal-curiosity-btn');
-        const closeButton       = document.getElementById('modal-close-btn');
+    // --- LÓGICA DOS PONTOS (SEM MODAL) ---
 
-        // Função para o webhook de ÁREAS DE INCÔMODO
-        async function sendAnnoyanceWebhook(areaKey) {
-            const patientId = localStorage.getItem('patientId');
-            const webhookURL = 'https://marqai-n8n-webhook.5ummqx.easypanel.host/webhook/areasdeincomodo';
-            if (!patientId || !areaKey) return;
-            try {
-                await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ patientId, annoyanceArea: areaKey })
-                });
-            } catch (error) {
-                console.error('Falha ao enviar webhook de incômodo:', error);
-            }
-        }
-
-        // Função para o webhook de ÁREAS VISUALIZADAS
-        async function sendAreaViewed(areaKey) {
-            const patientId = localStorage.getItem('patientId');
-            const webhookURL = 'https://marqai-n8n-editor.5ummqx.easypanel.host/webhook/areasdeinteresse';
-            if (!patientId || !areaKey) return;
-            try {
-                await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ patientId, viewedArea: areaKey })
-                });
-            } catch (error) {
-                console.error('Falha ao enviar webhook de visualização:', error);
-            }
-        }
-        
-        function hideModal() {
-            modal.classList.add('hidden');
-        }
-
-        function showModal(areaName, fileName, originPage) {
-            modalTitle.textContent = `Região: ${areaName}`;
-            modal.classList.remove('hidden');
-
-            // Clona botões para evitar listeners duplicados
-            const newAnnoyanceBtn = annoyanceButton.cloneNode(true);
-            const newCuriosityBtn = curiosityButton.cloneNode(true);
-            annoyanceButton.parentNode.replaceChild(newAnnoyanceBtn, annoyanceButton);
-            curiosityButton.parentNode.replaceChild(newCuriosityBtn, curiosityButton);
-
-            // “Sim, me incomoda”
-            newAnnoyanceBtn.addEventListener('click', async () => {
-                await sendAnnoyanceWebhook(fileName);
-                window.location.href = `tratamento.html?area=${fileName}&origin=${originPage}`;
-                hideModal();
-            });
-
-            // “Apenas curiosidade”
-            newCuriosityBtn.addEventListener('click', () => {
-                window.location.href = `tratamento.html?area=${fileName}&origin=${originPage}`;
-                hideModal();
-            });
-        }
-
-        // Fecha modal ao clicar no X ou fora do conteúdo
-        closeButton.addEventListener('click', hideModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) hideModal();
+    // --- CAPTURA DE ACESSO NO CLIQUE DO PONTO ---
+    const allDots = document.querySelectorAll('.interactive-dot');
+    allDots.forEach(dot => {
+        dot.addEventListener('click', async (event) => {
+            const areaName = dot.dataset.area;
+            const fileName = dot.dataset.filename;
+            
+            // redireciona diretamente para o tratamento
+            const isBackView = !!dot.closest('#back-view-content');
+            const viewParam = isBackView ? '&view=posterior' : '';
+            window.location.href = `tratamento.html?area=${fileName}&origin=corpo${viewParam}`;
         });
-
-        // --- CAPTURA DE ACESSO NO CLIQUE DO PONTO ---
-        const allDots = document.querySelectorAll('.interactive-dot');
-        allDots.forEach(dot => {
-            dot.addEventListener('click', async (event) => {
-                const areaName = dot.dataset.area;
-                const fileName = dot.dataset.filename;
-                
-                // envia webhook de visualização assim que clica
-                await sendAreaViewed(fileName);
-                
-                // depois abre o modal indicando origem 'corpo'
-                showModal(areaName, fileName, 'corpo');
-            });
-        });
-    }
+    });
 });

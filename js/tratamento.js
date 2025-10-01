@@ -1,6 +1,17 @@
 // js/tratamento.js (Versão Final Mais Robusta)
 
+
 document.addEventListener('DOMContentLoaded', () => {
+    if (!window.appConfig) {
+        setTimeout(() => {
+            // Silencioso
+        }, 1000);
+    }
+    if (!window.dataService) {
+        setTimeout(() => {
+            // Silencioso
+        }, 1000);
+    }
     // --- LÓGICA DE PERSONALIZAÇÃO E DADOS ---
     const patientId = localStorage.getItem('patientId');
     const wishlistKey = `wishlist_${patientId}`;
@@ -36,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             backButton.textContent = '← Voltar para o Mapa Corporal'; // Muda o texto
         } else {
             // Se não for 'corpo' ou se não houver 'origin', o padrão é voltar para o rosto
-            backButton.href = 'mapa.html';
+            backButton.href = 'index.html';
             backButton.textContent = '← Voltar para o Mapa Facial';
         }
     }
@@ -52,25 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const complaintsList = document.getElementById('complaints-list');
     const cardTemplate = document.getElementById('treatment-card-template');
 
-    // Função para enviar o interesse para o n8n
+    // Função para enviar o interesse - desabilitada
     async function sendInterestToN8N(treatmentName) {
-        const webhookWishlistURL = 'https://marqai-n8n-webhook.5ummqx.easypanel.host/webhook/wishlistdemov1';
-        const payload = {
-            patientId: patientId,
-            treatmentName: treatmentName,
-            timestamp: new Date().toISOString()
-        };
-        try {
-            const response = await fetch(webhookWishlistURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            return response.ok;
-        } catch (error) {
-            console.error('Falha ao enviar:', error);
-            return false;
-        }
+        return false;
     }
     
     // Monta os cards de tratamento
@@ -107,40 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 benefitsList.appendChild(li);
             });
 
-            // Se o tratamento já está na lista de interesses, já deixa o botão no estado "clicado"
-            if (wishlist.includes(treatmentName)) {
-                interestButton.innerHTML = '❤️';
-                interestButton.classList.add('clicked');
-                interestButton.disabled = true;
-            }
-
-            // Adiciona o evento de clique no botão
-            if (patientId) {
-                interestButton.addEventListener('click', async () => {
-                    interestButton.textContent = '...';
-                    interestButton.classList.add('sending');
-                    interestButton.disabled = true;
-
-                    const success = await sendInterestToN8N(treatmentName);
-
-                    if (success) {
-                        if (!wishlist.includes(treatmentName)) {
-                            wishlist.push(treatmentName); // AGORA ISSO VAI FUNCIONAR, POIS 'wishlist' É GARANTIDAMENTE UM ARRAY
-                            localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
-                        }
-                        interestButton.innerHTML = '❤️';
-                        interestButton.classList.remove('sending');
-                        interestButton.classList.add('clicked');
-                    } else {
-                        alert('Não foi possível registrar seu interesse. Tente novamente.');
-                        interestButton.innerHTML = 'Amei ❤️';
-                        interestButton.classList.remove('sending');
-                        interestButton.disabled = false;
-                    }
-                });
-            } else {
-                interestButton.style.display = 'none';
-            }
+            // Remove o botão de interesse
+            interestButton.style.display = 'none';
                         
             // ==========================================================
             //           INÍCIO DO CÓDIGO "SAIBA MAIS"

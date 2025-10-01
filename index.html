@@ -3,49 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clínica - Acesso Restrito</title>
+    <title>Aplicativo em Desenvolvimento</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <!-- AJUSTES PARA APP NO IOS \ ANDROID -->
-    <link rel="manifest" href="manifest.json">
-    <!-- Para navegadores baseados em Chromium (ex: Chrome no Android) -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <!-- REMOVE CAPACIDADE DE ZOOM DOS APPS -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Para Safari (Apple) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Clínica App">
-    <link rel="apple-touch-icon" href="images/logo-192.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffffff 0%, #d2d2d3 100%);
+            min-height: 100vh;
+        }
+        
+        .development-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .development-logo {
+            height: 120px;
+            margin-bottom: 2rem;
+            opacity: 1;
+        }
+        
+        .development-title {
+            font-size: 2.0rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .development-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .development-status {
+            background: #008c9e;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(146, 251, 255, 0.753);
+        }
+        
+        .development-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .development-info h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .development-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .contact-info strong {
+            color: #008ea1;
+        }
+        
+        @media (max-width: 768px) {
+            .development-title {
+                font-size: 2rem;
+            }
+            
+            .development-subtitle {
+                font-size: 1rem;
+            }
+            
+            .development-logo {
+                height: 100px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div class="login-container">
-        <img src="images/logo.png" alt="Logo da Clínica" class="logo">
-        <h2>Acesso Restrito</h2>
-        <p>Por favor, insira o PIN da recepção.</p>
-        <div class="pin-display">
-            <span class="pin-dot"></span>
-            <span class="pin-dot"></span>
-            <span class="pin-dot"></span>
-            <span class="pin-dot"></span>
+    <div class="development-container">
+        <img src="images/logomarq1.png" alt="Logo MarQ" class="development-logo">
+        
+        <h1 class="development-title">Aplicativo em Desenvolvimento</h1>
+        
+        <p class="development-subtitle">
+            Estamos trabalhando para trazer uma experiência incrível para você. 
+            Em breve, você terá acesso a todas as funcionalidades do nosso aplicativo.
+        </p>
+        
+        <div class="development-status">
+            🚧 Em Construção 🚧
         </div>
-        <p id="error-message" class="error-message hidden">PIN incorreto. Tente novamente.</p>
-        <div class="keypad">
-            <button class="key">1</button>
-            <button class="key">2</button>
-            <button class="key">3</button>
-            <button class="key">4</button>
-            <button class="key">5</button>
-            <button class="key">6</button>
-            <button class="key">7</button>
-            <button class="key">8</button>
-            <button class="key">9</button>
-            <button class="key key-zero">0</button>
-            <button class="key key-delete">⌫</button>
+        
+        <div class="development-info">
+            <h3>O que está por vir:</h3>
+            <p>• Mapa interativo do rosto e corpo</p>
+            <p>• Informações sobre tratamentos</p>
+            <p>• Interface moderna e intuitiva</p>
+            
+            <div class="contact-info">
+                <p><strong>Contato:</strong> Para mais informações, entre em contato conosco.</p>
+            </div>
         </div>
     </div>
-    <script src="js/login.js"></script>
 </body>
 </html>

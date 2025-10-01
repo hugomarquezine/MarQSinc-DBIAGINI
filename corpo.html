@@ -18,11 +18,27 @@
     <link rel="apple-touch-icon" href="images/logo-192.png">
 </head>
 <body class="body-map">
+    <script>
+        // Define as imagens corretas baseadas no gênero antes do carregamento
+        (function() {
+            const patientGender = (localStorage.getItem('currentPatientGender') || localStorage.getItem('patientGender') || '').toLowerCase();
+            const frontImageSrc = patientGender === 'masculino' ? 'images/corpo/corpo-frente-masculino.webp' : 'images/corpo/corpo-frente-feminino.webp';
+            const backImageSrc = patientGender === 'masculino' ? 'images/corpo/corpo-costas-masculino.webp' : 'images/corpo/corpo-costas-feminino.webp';
+            
+            // Cria elementos script para definir as variáveis globais
+            const script1 = document.createElement('script');
+            script1.textContent = `window.correctFrontImage = '${frontImageSrc}';`;
+            document.head.appendChild(script1);
+            
+            const script2 = document.createElement('script');
+            script2.textContent = `window.correctBackImage = '${backImageSrc}';`;
+            document.head.appendChild(script2);
+        })();
+    </script>
 
-    <div class="app-container">
+    <div class="app-container app-container-corpo">
         <header class="app-header">
             <img src="images/logo.png" alt="Logo da Clínica" class="logo">
-            <h1 class="title">Clique na área que gostaria de melhorar</h1>
         </header>
 
         <div class="selectors-wrapper">
@@ -38,7 +54,7 @@
 
         <main id="front-view-content" class="map-content active">
             <div class="face-map-container body-part-container">
-                <img id="body-front-image" src="images/corpo-frente-feminino.jpg" alt="Corpo - Vista Frontal" class="face-image">
+                <img id="body-front-image" src="" alt="Corpo - Vista Frontal" class="face-image">
                 <div class="interactive-dot dot-colo" data-area="Colo" data-filename="colo"></div>
                 <div class="interactive-dot dot-abdomen" data-area="Abdômen" data-filename="abdomen"></div>
                 <div class="interactive-dot dot-bracos" data-area="Braços" data-filename="bracos"></div>
@@ -50,61 +66,50 @@
 
         <main id="back-view-content" class="map-content">
              <div class="face-map-container body-part-container">
-                <img id="body-back-image" src="images/corpo-costas-feminino.jpg" alt="Corpo - Vista Posterior" class="face-image">
+                <img id="body-back-image" src="" alt="Corpo - Vista Posterior" class="face-image">
                 <div class="interactive-dot dot-costas" data-area="Costas" data-filename="costas"></div>
                 <div class="interactive-dot dot-gluteos" data-area="Glúteos" data-filename="gluteos"></div>
+                <div class="interactive-dot dot-banana" data-area="Bananinha" data-filename="banana"></div>
+                <div class="interactive-dot dot-flancos" data-area="Flancos" data-filename="flancos"></div>
+                <div class="interactive-dot dot-culote" data-area="Culote" data-filename="culote"></div>
             </div>
         </main>
     </div>
 
-    <div id="custom-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2 id="modal-title">Região: Exemplo</h2>
-
-            <div class="modal-question">
-                <p>Esta é uma área que te incomoda?</p>
-                <div class="modal-buttons-choice">
-                    <button id="modal-annoyance-btn" class="modal-button primary">Sim, me incomoda</button>
-                    <button id="modal-curiosity-btn" class="modal-button secondary">Apenas curiosidade</button>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                 <button id="modal-close-btn" class="modal-button-close">Voltar</button>
-            </div>
-        </div>
-    </div>
     
-    <nav id= "nav-rosto" class="bottom-nav">
-        <a href="mapa.html" class="nav-item active">
+    <nav id= "nav-rosto" class="bottom-nav fixed-nav">
+        <a href="index2.html" class="nav-item active">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16"><path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/></svg>
-            <span>Mapa Facial</span>
-        </a>
-        <a href="skincare.html" class="nav-item" id="nav-skincare-btn"> 
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-droplet-half" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.21.8C7.69.295 8.31.295 8.79.8l3.96 4.666A5 5 0 0 1 8 13.43a5 5 0 0 1-4.75-7.964zM8 12.333A4 4 0 0 0 11.166 8.5C11.166 6.5 9.5 5.25 8 4.333 6.5 5.25 4.834 6.5 4.834 8.5A4 4 0 0 0 8 12.333"/></svg>
-            <span>Skincare</span>
-        </a>
-        <a href="cardapio.html" class="nav-item" id="nav-cardapio-btn"> 
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-card-text" viewBox="0 0 16 16">
-            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-            <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
-            </svg>
-            <span>Cardápio</span>
-        </a>
-        <a href="chat.html" class="nav-item" id="nav-chat-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-quote" viewBox="0 0 16 16"><path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.504 7-5.5S11.996 3 8 3 1 5.504 1 8.5c0 1.578.543 3.023 1.482 4.105q.31.334.696.65Z"/><path d="M7.468 8.484c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135.724-.405.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213m4 0c.246 0 .464.07.65.211a.7.7 0 0 1 .236.559c0 .418-.135-.724-.405.932a.9.9 0 0 1-.58.213c-.246 0-.464-.07-.65-.211a.7.7 0 0 1-.236-.559c0-.418.135-.724.405-.932a.9.9 0 0 1 .58-.213"/></svg>
-            <span>Chat IA</span>
+            <span>Mapa Interativo</span>
         </a>
         <a href="clinica.html" class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16"><path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.867.953.55v-1.1zM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM13.25 7a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM13 5.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM5.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM5 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM5.25 7a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM5 5.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM1.634 1.85A.5.5 0 0 0 1.5 2.134V14.5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V2.134a.5.5 0 0 0-.134-.312l-6-5.5a.5.5 0 0 0-.732 0zM14 14.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V2.618l6-5.333 6 5.333z"/></svg>
-            <span>A Clínica</span>
+            <span>Dra. Bruna Biagini</span>
         </a>
         <a href="#" id="end-session-button" class="nav-item"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
             <span>Encerrar</span>
         </a>
     </nav>
 
+    <script src="js/config.js"></script>
+    <script>
+        // Define as imagens corretas imediatamente
+        document.addEventListener('DOMContentLoaded', function() {
+            const frontImage = document.getElementById('body-front-image');
+            const backImage = document.getElementById('body-back-image');
+            
+            if (frontImage && window.correctFrontImage) {
+                frontImage.src = window.correctFrontImage;
+            }
+            if (backImage && window.correctBackImage) {
+                backImage.src = window.correctBackImage;
+            }
+        });
+    </script>
+    
+    <script src="js/data-service.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/conteudo.js"></script>
-    <script src="js/corpo.js"></script> <script src="js/main.js"></script> 
+    <script src="js/corpo.js"></script>
 </body>
 </html>

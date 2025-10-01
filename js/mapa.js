@@ -1,6 +1,64 @@
 // js/mapa.js ou js/rosto.js (VERSÃO FINAL E CORRIGIDA)
 
+
 document.addEventListener('DOMContentLoaded', () => {
+    if (!window.appConfig) {
+        setTimeout(() => {
+            // Silencioso
+        }, 1000);
+    }
+
+    // --- LÓGICA PARA FOCAR APENAS NAS ÁREAS SELECIONADAS ---
+    function updateMapWithSelectedAreas() {
+        const allSelectedAreas = JSON.parse(localStorage.getItem('allSelectedAreas') || '[]');
+        const faceSelectedAreas = allSelectedAreas.filter(area => area.type === 'face');
+        
+        // Se há áreas selecionadas, mostra todas mas destaca apenas as selecionadas
+        if (faceSelectedAreas.length > 0) {
+            const allDots = document.querySelectorAll('.interactive-dot');
+            allDots.forEach(dot => {
+                const fileName = dot.getAttribute('data-filename');
+                const isSelected = faceSelectedAreas.some(area => area.filename === fileName);
+                
+                if (!isSelected) {
+                    // Mantém o ponto visível mas cinza (não selecionado)
+                    dot.classList.remove('selected-highlight');
+                    dot.classList.add('not-selected');
+                } else {
+                    // Destaca as áreas selecionadas
+                    dot.classList.add('selected-highlight');
+                    dot.classList.remove('not-selected');
+                }
+            });
+            
+            // Atualiza o título para indicar foco nas áreas selecionadas
+            const title = document.querySelector('.title');
+            if (title) {
+                title.textContent = 'Explore as áreas que você selecionou';
+            }
+        }
+    }
+
+    // Executa a atualização inicial
+    updateMapWithSelectedAreas();
+
+    // Listener para detectar mudanças no localStorage
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'allSelectedAreas') {
+            // Recarrega a página para aplicar as mudanças
+            window.location.reload();
+        }
+    });
+
+    // Listener para detectar mudanças quando a página ganha foco
+    window.addEventListener('focus', () => {
+        updateMapWithSelectedAreas();
+    });
+
+    // Listener para evento customizado de atualização
+    window.addEventListener('areasUpdated', () => {
+        updateMapWithSelectedAreas();
+    });
     
     // --- LÓGICA DE ALTERNÂNCIA DE VISUALIZAÇÃO (ROSTO/CORPO) ---
     const showFaceBtn = document.getElementById('show-face-btn');
@@ -25,111 +83,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- LÓGICA DO MAPA FACIAL (EXISTENTE E FUNCIONAL) ---
-    const patientGender = localStorage.getItem('patientGender');
+    const patientGender = (localStorage.getItem('currentPatientGender') || localStorage.getItem('patientGender') || '').toLowerCase();
     const faceImage = document.getElementById('face-map-image');
     const faceContainer = document.querySelector('#face-map-content .face-map-container'); 
     
     if (faceImage && faceContainer) {
         if (patientGender === 'masculino') {
-            faceImage.src = 'images/rosto-principal-masculino.jpg';
+            faceImage.src = 'images/rosto/rosto-principal-masculino.webp';
             faceContainer.classList.add('gender-male');
         } else {
-            faceImage.src = 'images/rosto-principal-feminino.jpg';
+            faceImage.src = 'images/rosto/rosto-principal-feminino.webp';
             faceContainer.classList.add('gender-female');
         }
     }
     
-    // --- LÓGICA DO MODAL INTELIGENTE E DOS PONTOS (ATUALIZADA) ---
-    const modal = document.getElementById('custom-modal');
-    if (modal) {
-        const modalTitle = document.getElementById('modal-title');
-        const annoyanceButton = document.getElementById('modal-annoyance-btn');
-        const curiosityButton = document.getElementById('modal-curiosity-btn');
-        const closeButton = document.getElementById('modal-close-btn');
+    // --- LÓGICA DOS PONTOS (SEM MODAL) ---
 
-        // Função para o webhook de "áreas de incômodo"
-        async function sendAnnoyanceWebhook(areaKey) {
-            const patientId = localStorage.getItem('patientId');
-            const webhookURL = 'https://marqai-n8n-webhook.5ummqx.easypanel.host/webhook/areasdeincomodo';
-
-            if (!patientId || !areaKey) return;
-
-            try {
-                await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ patientId, annoyanceArea: areaKey })
-                });
-            } catch (error) {
-                console.error('Falha ao enviar webhook de incômodo:', error);
-            }
-        }
-        
-        // Função para o webhook de "áreas visualizadas"
-        async function sendAreaViewed(areaKey) {
-            const patientId = localStorage.getItem('patientId');
-            const webhookURL = 'https://marqai-n8n-editor.5ummqx.easypanel.host/webhook/areasdeinteresse';
-
-            if (!patientId || !areaKey) return;
-
-            try {
-                await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ patientId, viewedArea: areaKey })
-                });
-            } catch (error) {
-                console.error('Falha ao enviar webhook de visualização:', error);
-            }
-        }
-
-        function hideModal() {
-            modal.classList.add('hidden');
-        }
-        
-        function showModal(areaName, fileName, originPage) {
-            modalTitle.textContent = `Região: ${areaName}`;
-            modal.classList.remove('hidden');
-
-            // clona botões para evitar múltiplos listeners
-            const newAnnoyanceBtn = annoyanceButton.cloneNode(true);
-            const newCuriosityBtn = curiosityButton.cloneNode(true);
-            annoyanceButton.parentNode.replaceChild(newAnnoyanceBtn, annoyanceButton);
-            curiosityButton.parentNode.replaceChild(newCuriosityBtn, curiosityButton);
-
-            // “Sim, me incomoda”
-            newAnnoyanceBtn.addEventListener('click', async () => { // "async" aqui
-                await sendAnnoyanceWebhook(fileName);                // "await" aqui
-                window.location.href = `tratamento.html?area=${fileName}&origin=${originPage}`;
-                hideModal();
-            });
-
-            // “Apenas curiosidade”
-            newCuriosityBtn.addEventListener('click', () => {
-                window.location.href = `tratamento.html?area=${fileName}&origin=${originPage}`;
-                hideModal();
-            });
-        }
-
-        // fecha modal ao clicar no X ou fora do conteúdo
-        closeButton.addEventListener('click', hideModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) hideModal();
+    // --- CAPTURA DE ACESSO NO CLIQUE DO PONTO ---
+    const allDots = document.querySelectorAll('.interactive-dot');
+    allDots.forEach(dot => {
+        dot.addEventListener('click', async (event) => {
+            const areaName = event.currentTarget.getAttribute('data-area');
+            const fileName = event.currentTarget.getAttribute('data-filename');
+            
+            // redireciona diretamente para o tratamento
+            window.location.href = `tratamento.html?area=${fileName}&origin=rosto`;
         });
-
-        // --- CAPTURA DE ACESSO NO CLIQUE DO PONTO ---
-        const allDots = document.querySelectorAll('.interactive-dot');
-        allDots.forEach(dot => {
-            dot.addEventListener('click', async (event) => {
-                const areaName = event.currentTarget.getAttribute('data-area');
-                const fileName = event.currentTarget.getAttribute('data-filename');
-                
-                // envia o webhook de visualização assim que clica no ponto
-                await sendAreaViewed(fileName);
-                
-                // abre o modal em seguida
-                showModal(areaName, fileName, 'rosto');
-            });
-        });
-    }
+    });
 });
