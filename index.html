@@ -3,152 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B.Clinique APP</title>
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- iOS Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="B.Clinique">
-    <link rel="apple-touch-icon" href="images/logo-192.png">
-    
-    <!-- Android Meta Tags -->
-    <meta name="theme-color" content="#008080">
-    <meta name="mobile-web-app-capable" content="yes">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="images/logo-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="images/logo-512.png">
-    
+    <title>B.Clinique APP - Selecione seu perfil</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- AJUSTES PARA APP NO IOS \ ANDROID -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Para navegadores baseados em Chromium (ex: Chrome no Android) -->
+    <meta name="mobile-web-app-capable" content="yes">
+     <!-- REMOVE CAPACIDADE DE ZOOM DOS APPS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Para Safari (Apple) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="B.Clinique">
+    <link rel="apple-touch-icon" href="images/logo-192.png">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #ffffff 0%, #d2d2d3 100%);
-            min-height: 100vh;
+            box-sizing: border-box;
         }
         
-        .development-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .body-selection { 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
             justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 2rem;
+            background-color: #f5f7fa;
+            background-image: url('images/VERTpattern.webp');
+            background-size: 350px;
+            background-position: top left;
+            background-repeat: repeat;
+            position: relative;
         }
         
-        .development-logo {
+        .body-selection::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(240, 245, 250, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .selection-container { 
+            width: 100%; 
+            max-width: 480px; 
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .selection-container .app-header { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            margin-bottom: -20px;
+            padding: 0;
+            min-height: 140px;
+        }
+        
+        .selection-container .app-header .logo { 
             height: 120px;
-            margin-bottom: 2rem;
-            opacity: 1;
+            width: auto;
+            max-width: 75%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            display: block;
+            opacity: 1 !important;
         }
-        
-        .development-title {
-            font-size: 2.0rem;
-            font-weight: 800;
-            color: #333;
-            margin-bottom: 1rem;
+        .selection-content { text-align: center; }
+        .selection-content .welcome-title { 
+            margin: 12px 0 12px;
+            color: #21424f;
+            font-size: 26px;
+            font-weight: 700;
         }
-        
-        .development-subtitle {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            line-height: 1.6;
+        .selection-content .subtitle {
+            margin: 0 0 28px;
+            color: #4f6f7d;
+            font-size: 16px;
+            line-height: 1.5;
         }
-        
-        .development-status {
-            background: #008c9e;
+        .gender-buttons { 
+            display: grid; 
+            gap: 16px; 
+            grid-template-columns: 1fr; 
+            padding: 0 12px;
+            margin-bottom: 20px;
+        }
+        .gender-buttons .selector-btn { 
+            border: 2px solid #404C4C; 
+            background: transparent; 
+            color: #404C4C; 
+            border-radius: 12px; 
+            padding: 18px 24px; 
+            font-weight: 600; 
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .gender-buttons .selector-btn:hover { 
+            background: #404C4C;
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(146, 251, 255, 0.753);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,128,128,0.3);
         }
-        
-        .development-info {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .development-info h3 {
-            color: #333;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-        
-        .development-info p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-        
-        .contact-info {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-        }
-        
-        .contact-info strong {
-            color: #008ea1;
-        }
-        
-        @media (max-width: 768px) {
-            .development-title {
-                font-size: 2rem;
-            }
-            
-            .development-subtitle {
-                font-size: 1rem;
-            }
-            
-            .development-logo {
-                height: 100px;
-            }
+        @media (min-width: 480px) { 
+            .gender-buttons { grid-template-columns: 1fr 1fr; } 
+            .selection-container { padding: 40px; }
         }
     </style>
 </head>
 
-<body>
-    <div class="development-container">
-        <img src="images/logomarq1.png" alt="Logo MarQ" class="development-logo">
-        
-        <h1 class="development-title">Aplicativo em Desenvolvimento</h1>
-        
-        <p class="development-subtitle">
-            Estamos trabalhando para trazer uma experiência incrível para você. 
-            Em breve, você terá acesso a todas as funcionalidades do nosso aplicativo.
-        </p>
-        
-        <div class="development-status">
-            🚧 Em Construção 🚧
-        </div>
-        
-        <div class="development-info">
-            <h3>O que está por vir:</h3>
-            <p>• Mapa interativo do rosto e corpo</p>
-            <p>• Informações sobre tratamentos</p>
-            <p>• Interface moderna e intuitiva</p>
-            
-            <div class="contact-info">
-                <p><strong>Contato:</strong> Para mais informações, entre em contato conosco.</p>
+<body class="body-selection">
+    <div class="selection-container">
+        <header class="app-header">
+            <img id="app-logo" src="images/logo.png" alt="Logo da Clínica" class="logo">
+        </header>
+
+        <main class="selection-content">
+            <h1 class="welcome-title">Seja bem-vindo(a)!</h1>
+            <p class="subtitle">Por gentileza, selecione o seu gênero para personalizarmos a sua experiência.</p>
+            <div class="gender-buttons">
+                <a href="rosto.html" class="selector-btn" id="btn-feminino" data-gender="feminino">Feminino</a>
+                <a href="rosto.html" class="selector-btn" id="btn-masculino" data-gender="masculino">Masculino</a>
             </div>
-        </div>
+        </main>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function setGender(gender) {
+                localStorage.setItem('currentPatientGender', gender);
+                localStorage.setItem('patientGender', gender);
+            }
+            const btnFem = document.getElementById('btn-feminino');
+            const btnMas = document.getElementById('btn-masculino');
+            if (btnFem) btnFem.addEventListener('click', function () { setGender('feminino'); });
+            if (btnMas) btnMas.addEventListener('click', function () { setGender('masculino'); });
+            
+            // Debug do logo
+            const logo = document.getElementById('app-logo');
+            if (logo) {
+                console.log('Logo encontrado:', logo.src);
+                logo.onload = function() {
+                    console.log('Logo carregou com sucesso!');
+                };
+                logo.onerror = function() {
+                    console.error('Erro ao carregar o logo');
+                };
+            }
+        });
+    </script>
 </body>
-</html>

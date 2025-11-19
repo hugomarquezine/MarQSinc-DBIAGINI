@@ -30,7 +30,7 @@ body {
 .login-container { padding: 2rem; max-width: 400px; }
 .pin-display { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
 .pin-dot { width: 20px; height: 20px; background-color: #ddd; border-radius: 50%; transition: background-color 0.2s; }
-.pin-dot.filled { background-color: #DCB747; }
+.pin-dot.filled { background-color: #6e786f; }
 .error-message { color: #d9534f; font-weight: 600; }
 /* Estilos do Teclado de PIN Corrigido */
 .keypad {
@@ -66,37 +66,23 @@ body {
 /* --- Tela de Seleção --- */
 .selection-container { padding: 2rem; }
 .selection-buttons { display: flex; gap: 2rem; margin-top: 2rem; }
-.selection-button { background-color: white; border: 2px solid #DCB747; border-radius: 15px; padding: 2rem; font-size: 1.5rem; cursor: pointer; width: 300px; transition: all 0.3s; }
+.selection-button { background-color: white; border: 2px solid #6e786f; border-radius: 15px; padding: 2rem; font-size: 1.5rem; cursor: pointer; width: 300px; transition: all 0.3s; }
 .selection-button span { font-size: 1rem; font-weight: 400; color: #555; display: block; margin-top: 0.5rem; }
 .selection-button:hover { background-color: #e6f2f2; transform: translateY(-5px); }
 .logout-button { margin-top: 3rem; background: none; border: none; color: #888; text-decoration: underline; cursor: pointer; }
 
-/* --- Tela de Anamnese --- */
-.anamnese-container { width: 100%; max-width: 700px; padding: 2rem; }
-.progress-bar { width: 100%; height: 10px; background-color: #eee; border-radius: 5px; overflow: hidden; margin-bottom: 3rem; }
-.progress-bar-fill { width: 0%; height: 100%; background-color: #DCB747; transition: width 0.4s ease; }
-.step { display: none; }
-.step.active { display: block; animation: fadeIn 0.5s; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
-.option-button, .nav-button { background-color: white; border: 2px solid #ddd; border-radius: 10px; padding: 1.0rem; font-size: 1.2rem; cursor: pointer; transition: all 0.2s; color: #1d1d1d;}
-.option-button:hover, .nav-button:hover { border-color: #DCB747; background-color: #e6f2f2; }
-.slider-container { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2rem; }
-.slider { width: 70%; }
-.text-input { width: 80%; padding: 1rem; font-size: 1.2rem; border-radius: 10px; border: 2px solid #ddd; margin-top: 1rem; }
-#finish-anamnese { background-color: #DCB747; color: white; border: none; margin-top: 2rem; }
-
 /* --- Tela do Mapa Facial (já criada) --- */
-.app-container { width: 100%; max-width: 900px; background-color: #ffffff; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
+.app-container { width: 100%; max-width: 900px; background-color: #trans
+  ; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
 /* ESSE -mapa FAZ COM QUE A TELA DO ROSTO FIQUE MENOR, SEM SEGUIR O TAMANHO DO ROSTO*/
-.app-container-mapa { width: 100%; max-width: 900px; background-color: #ffffff; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
+.app-container-mapa { width: 100%; max-width: 900px; background-color: transparent; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
 
 .app-header { text-align: center; margin-top: 1rem; }
 .title { font-size: 1.5rem; font-weight: 400; color: #555; }
 .face-map-container { position: relative; width: fit-content; margin: auto; }
 .face-image { display: block; max-width: 100%; border-radius: 15px; }
-.interactive-dot { position: absolute; width: 15px; height: 15px; background-color: #e7b30567; border: 2px solid white; border-radius: 50%; cursor: pointer; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; animation: pulse 2s infinite ease-in-out; }
-.interactive-dot:hover { transform: scale(1.3); box-shadow: 0 0 15px rgba(187, 153, 1, 0.747); animation-play-state: paused; }
+.interactive-dot { position: absolute; width: 15px; height: 15px; background-color: #6c886f8f; border: 2px solid white; border-radius: 50%; cursor: pointer; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; animation: pulse 2s infinite ease-in-out; }
+.interactive-dot:hover { transform: scale(1.3); box-shadow: 0 0 15px #6e786fa8; animation-play-state: paused; }
 
 /* --- Posições dos Pontos - Versão Dinâmica por Gênero --- */
 
@@ -104,9 +90,11 @@ body {
 .gender-female .dot-testa     { top: 21.8%; left: 50%; }
 .gender-female .dot-glabela   { top: 32.7%; left: 50%; }
 .gender-female .dot-olhos     { top: 37%; left: 36%; }
+.gender-female .dot-embaixo-olho { top: 41%; left: 59%; }
 .gender-female .dot-nariz     { top: 45%; left: 50%; }
 .gender-female .dot-bochechas { top: 51%; left: 65%; }
 .gender-female .dot-labios    { top: 59%; left: 50%; }
+.gender-female .dot-bigode-chines { top: 53%; left: 43%; }
 .gender-female .dot-queixo    { top: 67%; left: 50%; }
 .gender-female .dot-pescoco   { top: 90%; left: 50%; }
 .gender-female .dot-papada   { top: 75%; left: 50%; }
@@ -120,9 +108,11 @@ body {
 .gender-male .dot-testa     { top: 25%; left: 50%; }
 .gender-male .dot-glabela   { top: 35%; left: 50%; }
 .gender-male .dot-olhos     { top: 40%; left: 37%; }
+.gender-male .dot-embaixo-olho { top: 43%; left: 62%; }
 .gender-male .dot-nariz     { top: 49%; left: 50%; }
-.gender-male .dot-bochechas { top: 49%; left: 64%; }
+.gender-male .dot-bochechas { top: 51%; left: 64%; }
 .gender-male .dot-labios    { top: 61%; left: 50%; }
+.gender-male .dot-bigode-chines { top: 56%; left: 43%; }
 .gender-male .dot-queixo    { top: 69%; left: 41%; }
 .gender-male .dot-pescoco   { top: 91%; left: 50%; }
 .gender-male .dot-papada     { top: 76%; left: 50%; }
@@ -137,7 +127,9 @@ body {
 .gender-female .dot-bracos {top: 18%; left: 62.3%;}
 .gender-female .dot-maos {top: 43.4%;left: 65%;}
 .gender-female .dot-pernas {top: 61.3%; left: 54.7%;}
-.gender-female .dot-pes {top: 93.6%; left: 52.7%;}
+.gender-female .dot-axila {top: 9.8%; left: 29.6%;}
+.gender-female .dot-gordura-sutia {top: 9.8%; left: 59.3%;}
+.gender-female .dot-coxa-anterior {top: 55%; left: 54.7%;}
 
 .gender-female .dot-costas {top: 8.9%; left: 50%;}
 .gender-female .dot-gluteos {top: 40.3%; left: 43.4%;}
@@ -151,7 +143,10 @@ body {
 .gender-male .dot-bracos {top: 24.4%; left: 68%;}
 .gender-male .dot-maos {top: 43.4%; left: 67%;}
 .gender-male .dot-pernas {top: 59.1%; left: 58.3%;}
-.gender-male .dot-pes {top: 91.7%; left: 61.7%;}
+.gender-male .dot-axila {top: 12%; left: 39%;}
+.gender-male .dot-coxa-anterior {top: 50%; left: 42.3%;}
+/* Gordura sutiã não existe para homens - esconder o ponto */
+.gender-male .dot-gordura-sutia { display: none; }
 
 .gender-male .dot-costas {top: 7.6%; left: 50.6%;}
 .gender-male .dot-gluteos {top: 38.1%; left: 44.8%;}
@@ -163,7 +158,7 @@ body {
 .interactive-dot {
     transform: translateX(-50%);
 }
-@keyframes pulse { 0%   { box-shadow: 0 0 0 0 rgba(128, 105, 0, 0.6); } 70%  { box-shadow: 0 0 0 12px rgba(0, 128, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); } }
+@keyframes pulse { 0%   { box-shadow: 0 0 0 0 rgba(89, 121, 93, 0.6); } 70%  { box-shadow: 0 0 0 12px rgba(0, 128, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); } }
 .bottom-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
 #nav-rosto { display: flex; justify-content: center; gap: 2rem; margin-top: 0rem; padding-top: 0.5rem; border-top: 1px solid #eee; }
 
@@ -240,7 +235,7 @@ body {
   color: white;
 }
 .modal-button.primary:hover {
-    background-color: #5c4600;
+    background-color: #4C5656;
 }
 
 .modal-button.secondary {
@@ -299,22 +294,22 @@ body {
 .treatment-info h3{
   margin: 0;
   font-size: 1.8rem;
-  color: #5c4600;
+  color: #4C5656;
 }
 
 .treatment-info h4{
 margin: 0;
-color: #5c4600;
+color: #4C5656;
 }
 
 .treatment-benefits {
 margin: 0;
-color: #5c4600;
+color: #4C5656;
 }
 
 .treatment-buttons{
 margin: 0;
-color: #5c4600;
+color: #4C5656;
 }
 
 /* BOTÃO VOLTAR PROCEDIMENTOS > MAPAS */
@@ -368,7 +363,7 @@ color: #5c4600;
 .treatment-info h3 {
   margin-top: 0;
   font-size: 1.8rem;
-  color: #5c4600;
+  color: #4C5656;
 }
 
 .treatment-info p {
@@ -383,7 +378,7 @@ color: #5c4600;
 /* para trocar a de um svg, é só alterar o codigo que vem após o %23 - %23 é # e 5c4600 é o valor hexadecimal da cor*/
 .treatment-benefits li {
   padding-left: 1.5em;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235c4600" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23C1948F" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>');
   background-repeat: no-repeat;
   background-position: left center;
   margin-bottom: 0.5rem;
@@ -415,29 +410,35 @@ color: #5c4600;
 
 .profile-card {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   align-items: center;
-  background: linear-gradient(180deg, #fffaf0 0%, #ffffff 60%);
+  text-align: center;
+  background: linear-gradient(180deg, #c1958f17 0%, #c1958f0e 60%, #ffffff 100%);
   border-radius: 15px;
   box-shadow: 0 5px 25px rgba(0,0,0,0.07);
   padding: 1.5rem;
 }
 
-.profile-photo { text-align: center; }
+.profile-photo { 
+  text-align: center; 
+  display: flex;
+  justify-content: center;
+}
 .profile-image {
   width: 230px;
   height: 230px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 5px 25px rgba(0,0,0,0.1), 0 0 0 4px rgba(220,183,71,0.08);
-  border: 2px solid #DCB747;
+  border: 2px solid #C39893;
+  margin: 0 auto;
 }
-.profile-text h2 { font-size: 2rem; margin-top: 0; text-align: left }
-.profile-info h2 { font-size: 1.8rem; margin: 0 0 .5rem 0; }
-.profile-text .credentials { text-align: left; font-style: italic; color: #777; margin-top: -10px; margin-bottom: 10px;}
-.profile-text p { text-align: left;; line-height: 1.6; }
-.profile-text p.credentials { text-align: center;; line-height: 1.2; }
+.profile-text h2 { font-size: 2rem; margin-top: 0; text-align: center; }
+.profile-info h2 { font-size: 1.8rem; margin: 0 0 .5rem 0; text-align: center; }
+.profile-text .credentials { text-align: center; font-style: italic; color: #777; margin-top: -10px; margin-bottom: 10px;}
+.profile-text p { text-align: center; line-height: 1.6; }
+.profile-text p.credentials { text-align: center; line-height: 1.2; }
 
 /* Lista estilizada do perfil */
 .profile-list {
@@ -445,6 +446,9 @@ color: #5c4600;
   padding-left: 1.2rem;
   text-align: left;
   color: #4a4a4a;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .profile-list li {
   margin: 0.25rem 0;
@@ -458,9 +462,9 @@ color: #5c4600;
   justify-content: center;
 }
 .badge {
-  background: #f7f3e6;
-  color: #5c4600;
-  border: 1px solid #e8ddbe;
+  background: #c3989315;
+  color: #424242;
+  border: 1px solid #C39893;
   padding: 4px 10px;
   border-radius: 999px;
   font-size: .85rem;
@@ -505,7 +509,7 @@ color: #5c4600;
 }
 .highlight-card h3 {
   margin: 0.25rem 0 0.5rem 0;
-  color: #5c4600;
+  color: #6e786f;
 }
 .highlight-card p {
   margin: 0;
@@ -610,7 +614,7 @@ color: #5c4600;
 }
 
 .user-message {
-  background-color: #DCB747;
+  background-color: #6e786f;
   color: white;
   border-top-right-radius: 5px;
   align-self: flex-end;
@@ -649,9 +653,9 @@ color: #5c4600;
   padding: 12px 18px;
   font-size: 1rem;
 }
-#message-input:focus { outline: none; border-color: #DCB747; }
+#message-input:focus { outline: none; border-color: #6e786f; }
 .chat-form button {
-  border: none; background-color: #DCB747; color: white; border-radius: 50%;
+  border: none; background-color: #6e786f; color: white; border-radius: 50%;
   width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center;
   transition: background-color 0.2s;
 }
@@ -816,7 +820,7 @@ color: #5c4600;
     font-weight: 600;
 }
 .video-menu li a:hover { background-color: #f0f2f5; }
-.video-menu li a.active { background-color: #e6f2f2; color: #DCB747; }
+.video-menu li a.active { background-color: #e6f2f2; color: #6e786f; }
 .interest-section { grid-area: interests; }
 .bottom-nav { grid-area: actions; } /* A barra de navegação entra na área "actions" */
 
@@ -1047,11 +1051,11 @@ color: #5c4600;
     border-radius: 10px;
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
-    border-left: 4px solid #DCB747;
+    border-left: 4px solid #6e786f;
 }
 .common-complaints h3 {
     margin-top: 0;
-    color: #5c4600;
+    color: #6e786f;
 }
 .common-complaints ul {
     list-style: none;
@@ -1061,7 +1065,7 @@ color: #5c4600;
     gap: 10px;
 }
 .common-complaints li {
-    background-color: #e6f2f2;
+    background-color: #f1f1f1;
     padding: 5px 12px;
     border-radius: 15px;
     font-size: 0.9rem;
@@ -1123,10 +1127,19 @@ color: #5c4600;
     margin-bottom: 2rem;
     background-color: #e9e9e9;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 999px;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+}
+
+.view-selector-corpo {
+    border-radius: 999px;
+}
+
+.view-selector-mapa .selector-btn,
+.view-selector-corpo .selector-btn {
+    border-radius: 999px;
 }
 
 .selector-btn {
@@ -1144,7 +1157,7 @@ color: #5c4600;
 
 .selector-btn.active {
     background-color: #ffffff;
-    color: #8a6b04;
+    color: #6e786f;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -1186,7 +1199,7 @@ color: #5c4600;
 .zone-card-title {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #5c4600;
+    color: #4C5656;
 }
 
 /* =================================================================== */
@@ -1256,7 +1269,7 @@ color: #5c4600;
 
 .body-map .app-header .logo {
     height: 90px;
-    margin: 0 0 5px 0;
+    margin: 20px 0 5px 0;
 }
 
 .body-map .app-header .title {
@@ -1395,7 +1408,7 @@ body.body-skincare .app-header .logo {
 
 .filter-btn.active {
     background-color: #ffffff;
-    color: #DCB747;
+    color: #6e786f;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -1497,7 +1510,7 @@ body.body-skincare .app-header .logo {
 }
 
 .cardapio-select-button {
-    background-color: #DCB747;
+    background-color: #6e786f;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -1510,7 +1523,7 @@ body.body-skincare .app-header .logo {
 }
 
 .cardapio-select-button:hover {
-    background-color: #5c4600;
+    background-color: #4C5656;
 }
 
 
@@ -1567,7 +1580,7 @@ body.body-skincare .app-header .logo {
     border-radius: 15px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.07);
     margin-bottom: 2rem;
-    border: 2px solid #DCB747;
+    border: 2px solid #6e786f;
 }
 
 .pedido-container h2 {
@@ -1673,15 +1686,16 @@ body.body-skincare .app-header .logo {
 
 .filter-btn.active {
     background-color: #ffffff; /* Fundo branco quando ativo */
-    color: #DCB747; /* Cor do texto quando ativo */
+    color: #6e786f; /* Cor do texto quando ativo */
     box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Sombra para dar profundidade */
 }
 
 /* --- ESTILO PARA MENSAGEM INSTRUTIVA --- */
 
 .instructive-message {
+    display: none;
     background-color: #fdf8e8; /* Um tom de amarelo bem claro, relacionado à sua paleta */
-    border-left: 5px solid #DCB747; /* Borda lateral dourada para destaque */
+    border-left: 5px solid #6e786f; /* Borda lateral dourada para destaque */
     padding: 15px 20px;
     margin-bottom: 1rem; /* Centraliza e adiciona margem inferior */
     border-radius: 8px;
@@ -1693,7 +1707,7 @@ body.body-skincare .app-header .logo {
     margin: 0;
     font-size: 1rem;
     line-height: 1.6;
-    color: #5c4600; /* Cor do texto mais escura para boa legibilidade */
+    color: #4C5656; /* Cor do texto mais escura para boa legibilidade */
     text-align: center;
 }
 
@@ -1731,15 +1745,15 @@ body.body-skincare .app-header .logo {
     text-decoration: none;
     text-align: center;
     transition: all 0.2s ease-in-out;
-    border: 2px solid #DCB747; /* AMBOS terão a mesma borda */
+    border: 2px solid #6e786f; /* AMBOS terão a mesma borda */
     box-sizing: border-box; /* Garante que o tamanho final seja o mesmo */
     margin-top: 0.6rem;
-    color: #5c4600;
+    color: #4C5656;
 }
 
 /* 2. Estilo específico para o botão "Amei" */
 .interest-button {
-  background-color: #DCB747;
+  background-color: #6e786f;
   color: white;
 }
 .interest-button:hover {
@@ -1750,10 +1764,12 @@ body.body-skincare .app-header .logo {
 /* 3. Estilo específico para o botão "Saiba Mais" */
 .saiba-mais-button {
     background-color: transparent;
-    color: #DCB747;
+    color: #6e786f;
+    display: none !important; /* PROVISÓRIO: Ocultar botões */
+
 }
 .saiba-mais-button:hover {
-    background-color: #DCB747;
+    background-color: #6e786f;
     color: white;
 }
 
@@ -1813,7 +1829,7 @@ body.body-skincare .app-header .logo {
 
 .detalhe-descricao-container h2, .detalhe-galeria-container h2 {
     font-size: 1.8rem;
-    border-bottom: 2px solid #DCB747;
+    border-bottom: 2px solid #6e786f;
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
 }
@@ -1885,8 +1901,8 @@ body.body-skincare .app-header .logo {
 }
 .option-choice-btn.active {
     background-color: #fdf8e8;
-    border-color: #DCB747;
-    color: #5c4600;
+    border-color: #6e786f;
+    color: #4C5656;
     font-weight: 600;
 }
 
@@ -1902,7 +1918,7 @@ body.body-skincare .app-header .logo {
 
 /* 6. Estilo do botão "ADICIONAR" (sem alterações) */
 .add-to-order-button {
-    background-color: #DCB747;
+    background-color: #6e786f;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -1914,7 +1930,7 @@ body.body-skincare .app-header .logo {
     width: auto;
 }
 .add-to-order-button:hover {
-    background-color: #5c4600;
+    background-color: #4C5656;
 }
 
 /* 7. Estilos do contador de quantidade (sem alterações) */
@@ -1976,13 +1992,13 @@ body.body-skincare .app-header .logo {
 }
 #visualizar-pedido-btn {
     font-size: 0.9rem;
-    color: #DCB747;
+    color: #6e786f;
     text-decoration: underline;
     font-weight: 500;
     cursor: pointer;
 }
 .enviar-pedido-btn {
-    background-color: #DCB747;
+    background-color: #6e786f;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -1993,7 +2009,7 @@ body.body-skincare .app-header .logo {
     transition: background-color 0.2s;
 }
 .enviar-pedido-btn:hover {
-    background-color: #5c4600;
+    background-color: #4C5656;
 }
 
 /* --- ESTILOS PARA O MODAL DE DETALHES DO PEDIDO --- */
@@ -2040,7 +2056,7 @@ body.body-skincare .app-header .logo {
 
 .progress-fill {
   height: 100%;
-  background-color: var(--cor-primaria, #DCB747);
+  background-color: var(--cor-primaria, #6e786f);
   width: 0%;
   transition: width 0.3s ease;
 }
@@ -2073,7 +2089,7 @@ body.body-skincare .app-header .logo {
 
 .text-input:focus {
   outline: none;
-  border-color: var(--cor-primaria, #DCB747);
+  border-color: var(--cor-primaria, #6e786f);
 }
 
 textarea.text-input {
@@ -2091,12 +2107,12 @@ textarea.text-input {
 
 .date-input:hover {
   background-color: #f0f0f0;
-  border-color: var(--cor-primaria, #DCB747);
+  border-color: var(--cor-primaria, #6e786f);
 }
 
 .date-input:focus {
   background-color: #fff;
-  border-color: var(--cor-primaria, #DCB747);
+  border-color: var(--cor-primaria, #6e786f);
   box-shadow: 0 0 0 3px rgba(220, 183, 71, 0.1);
 }
 
@@ -2137,7 +2153,7 @@ textarea.text-input {
 }
 
 .nav-button {
-  background-color: var(--cor-primaria, #DCB747);
+  background-color: var(--cor-primaria, #6e786f);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -2189,7 +2205,7 @@ textarea.text-input {
 .radio-group input[type="radio"] {
   width: 18px;
   height: 18px;
-  accent-color: var(--cor-primaria, #DCB747);
+  accent-color: var(--cor-primaria, #6e786f);
 }
 
 .checkbox-group {
@@ -2217,7 +2233,7 @@ textarea.text-input {
 .checkbox-group input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: var(--cor-primaria, #DCB747);
+  accent-color: var(--cor-primaria, #6e786f);
 }
 
 /* Responsividade para anamnese */
@@ -2347,7 +2363,7 @@ textarea.text-input {
 .interactive-dot.selected-highlight {
     background-color: var(--cor-primaria) !important;
     border: 3px solid #fff !important;
-    box-shadow: 0 0 15px rgba(220, 183, 71, 0.6) !important;
+    box-shadow: 0 0 15px rgba(71, 220, 96, 0.6) !important;
     animation: pulse-selected 2s infinite;
 }
 
@@ -2396,7 +2412,7 @@ textarea.text-input {
     animation-play-state: paused;
 }
 
-/* Estilos para pontos não selecionados nos mapas (mapa.html e corpo.html) */
+/* Estilos para pontos não selecionados nos mapas (rosto.html e corpo.html) */
 .interactive-dot.not-selected {
     background-color: #888888 !important; /* Cinza para não selecionados */
     border: 3px solid #ffffff !important;

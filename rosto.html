@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B.Clinique APP - Mapa Interativo</title>
+    <title>B.Clinique APP - Rosto</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,14 +21,12 @@
     <link rel="apple-touch-icon" href="images/logo-192.png">
 </head>
 
-<body class="body-map"> 
+<body class="body-map" style="background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('images/VERTpattern.webp'); background-repeat: repeat; background-attachment: fixed; background-position: top left; background-size: 350px;"> 
     <script>
         // Define a imagem correta baseada no gênero antes do carregamento
         (function() {
             const patientGender = (localStorage.getItem('currentPatientGender') || localStorage.getItem('patientGender') || '').toLowerCase();
             const faceImageSrc = patientGender === 'masculino' ? 'images/rosto/rosto-principal-masculino.webp' : 'images/rosto/rosto-principal-feminino.webp';
-            
-            // Cria um elemento script para definir a variável global
             const script = document.createElement('script');
             script.textContent = `window.correctFaceImage = '${faceImageSrc}';`;
             document.head.appendChild(script);
@@ -42,7 +40,7 @@
         </header>
 
         <div class="view-selector-mapa">
-                <a href="index2.html" class="selector-btn active">Rosto</a>
+                <a href="rosto.html" class="selector-btn active">Rosto</a>
                 <a href="corpo.html" class="selector-btn">Corpo</a>
         </div>
 
@@ -53,9 +51,11 @@
                     <div class="interactive-dot dot-testa" data-area="Testa" data-filename="testa"></div>
                     <div class="interactive-dot dot-glabela" data-area="Glabela (entre as sobrancelhas)" data-filename="glabela"></div>
                     <div class="interactive-dot dot-olhos" data-area="Região dos Olhos" data-filename="olhos"></div>
+                    <div class="interactive-dot dot-embaixo-olho" data-area="Embaixo do olho" data-filename="embaixo-olho"></div>
                     <div class="interactive-dot dot-nariz" data-area="Nariz" data-filename="nariz"></div>
                     <div class="interactive-dot dot-bochechas" data-area="Bochechas" data-filename="bochechas"></div>
                     <div class="interactive-dot dot-labios" data-area="Lábios e Contorno" data-filename="labios"></div>
+                    <div class="interactive-dot dot-bigode-chines" data-area="Bigode chinês e Código de barras" data-filename="bigode-chines"></div>
                     <div class="interactive-dot dot-queixo" data-area="Queixo e Contorno Mandibular" data-filename="queixo"></div>
                     <div class="interactive-dot dot-pescoco" data-area="Pescoço" data-filename="pescoco"></div>
                     <div class="interactive-dot dot-papada" data-area="Papada" data-filename="papada"></div>
@@ -65,37 +65,23 @@
             </main>
             <main id="body-map-content" class="map-content"> 
             </main>
-
-            <div id="custom-modal" class="modal-overlay hidden">
-                <div class="modal-content">
-                    <h2 id="modal-title">Região: Exemplo</h2>
-                
-                    <div class="modal-question">
-                        <p>Esta é uma área que te incomoda?</p>
-                        <div class="modal-buttons-choice">
-                            <button id="modal-annoyance-btn" class="modal-button primary">Sim, me incomoda</button>
-                            <button id="modal-curiosity-btn" class="modal-button secondary">Apenas curiosidade</button>
-                        </div>
-                    </div>
-                     <div class="modal-footer">
-                        <button id="modal-close-btn" class="modal-button-close">Voltar</button>
-                    </div>
-                </div>
-            </div>
     </div>
 
     <nav class="bottom-nav fixed-nav">
-        <a href="index2.html" class="nav-item active">
+        <a href="rosto.html" class="nav-item active">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16"><path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/></svg>
             <span>Mapa Interativo</span>
         </a>
         <a href="clinica.html" class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16"><path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.867.953.55v-1.1zM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM13.25 7a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM13 5.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM5.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM5 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM5.25 7a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM5 5.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM1.634 1.85A.5.5 0 0 0 1.5 2.134V14.5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V2.134a.5.5 0 0 0-.134-.312l-6-5.5a.5.5 0 0 0-.732 0zM14 14.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V2.618l6-5.333 6 5.333z"/></svg>
             <span>Dra. Bruna Biagini</span>
-
+        </a>
+        <a href="#" id="end-session-button" class="nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
+            <span>Encerrar</span>
+        </a>
     </nav>
 
-    
     <script src="js/config.js"></script>
     <script>
         // Define a imagem correta imediatamente
@@ -103,6 +89,15 @@
             const faceImage = document.getElementById('face-map-image');
             if (faceImage && window.correctFaceImage) {
                 faceImage.src = window.correctFaceImage;
+            }
+            const endButton = document.getElementById('end-session-button');
+            if (endButton) {
+                endButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('currentPatientGender');
+                    localStorage.removeItem('patientGender');
+                    window.location.href = 'index.html';
+                });
             }
         });
     </script>
@@ -113,3 +108,5 @@
     <script src="js/mapa.js"></script> 
 </body>
 </html>
+
+

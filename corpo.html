@@ -14,10 +14,10 @@
     <!-- Para Safari (Apple) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Clínica App">
+    <meta name="apple-mobile-web-app-title" content="B.Clinique">
     <link rel="apple-touch-icon" href="images/logo-192.png">
 </head>
-<body class="body-map">
+<body class="body-map" style="background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('images/VERTpattern.webp'); background-repeat: repeat; background-attachment: fixed; background-position: top left; background-size: 350px;"> 
     <script>
         // Define as imagens corretas baseadas no gênero antes do carregamento
         (function() {
@@ -43,7 +43,7 @@
 
         <div class="selectors-wrapper">
           <div class="view-selector-voltar">
-            <a href="mapa.html" class="selector-btn">← Rosto</a>
+            <a href="rosto.html" class="selector-btn">← Rosto</a>
           </div>
       
           <div class="view-selector-corpo">
@@ -60,7 +60,9 @@
                 <div class="interactive-dot dot-bracos" data-area="Braços" data-filename="bracos"></div>
                 <div class="interactive-dot dot-maos" data-area="Mãos" data-filename="maos"></div>
                 <div class="interactive-dot dot-pernas" data-area="Pernas" data-filename="pernas"></div>
-                <div class="interactive-dot dot-pes" data-area="Pés" data-filename="pes"></div>
+                <div class="interactive-dot dot-axila" data-area="Axila" data-filename="axila"></div>
+                <div class="interactive-dot dot-gordura-sutia" data-area="Gordura sutiã" data-filename="gordura-sutia"></div>
+                <div class="interactive-dot dot-coxa-anterior" data-area="Coxa anterior" data-filename="coxa-anterior"></div>
             </div>
         </main>
 
@@ -78,7 +80,7 @@
 
     
     <nav id= "nav-rosto" class="bottom-nav fixed-nav">
-        <a href="index2.html" class="nav-item active">
+        <a href="rosto.html" class="nav-item active">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16"><path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/></svg>
             <span>Mapa Interativo</span>
         </a>

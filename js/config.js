@@ -1,25 +1,15 @@
-// js/config.js - Sistema de Configuração Híbrida (Webhook + Supabase)
+// js/config.js - Sistema de Configuração (simplificado)
 
 class AppConfig {
     constructor() {
         this.config = {
-            // Configuração principal - determina se usa webhook ou Supabase
-            useSupabase: false, // Por padrão, mantém webhooks funcionando
-            
-            // URLs dos webhooks removidas
-            webhooks: {},
-            
             // Configuração para múltiplas clínicas
             multiTenant: {
                 enabled: true,
                 defaultClinicId: 'clinica-padrao',
                 clinicConfigs: {
-                    // Exemplo de configuração por clínica
                     'clinica-1': {
                         name: 'Clínica Exemplo 1',
-                        webhooks: {
-                            // URLs específicas da clínica (opcional)
-                        },
                         settings: {
                             primaryColor: '#008080',
                             secondaryColor: '#FF6B6B',
@@ -27,11 +17,7 @@ class AppConfig {
                         }
                     }
                 }
-            },
-            
-            // Configurações do Supabase removidas
-            
-            // Configurações de fallback removidas
+            }
         };
         
         this.loadConfig();
@@ -55,20 +41,6 @@ class AppConfig {
         localStorage.setItem('appConfig', JSON.stringify(this.config));
     }
     
-    // Alterna entre webhook e Supabase
-    toggleDataProvider() {
-        this.config.useSupabase = !this.config.useSupabase;
-        this.saveConfig();
-        return this.config.useSupabase;
-    }
-    
-    // Obtém URL do webhook para um serviço específico
-    getWebhookURL(service) {
-        const url = this.config.webhooks[service] || null;
-        return url;
-    }
-    
-    // Métodos de Supabase removidos
     
     // Atualiza configuração específica
     updateConfig(key, value) {
@@ -92,18 +64,6 @@ class AppConfig {
         return this.config.multiTenant.clinicConfigs[id] || null;
     }
     
-    getWebhookURLForClinic(service, clinicId = null) {
-        const id = clinicId || this.getCurrentClinicId();
-        const clinicConfig = this.getClinicConfig(id);
-        
-        // Se a clínica tem URLs específicas, usa elas
-        if (clinicConfig && clinicConfig.webhooks && clinicConfig.webhooks[service]) {
-            return clinicConfig.webhooks[service];
-        }
-        
-        // Senão, usa as URLs padrão
-        return this.config.webhooks[service] || null;
-    }
     
     updateClinicConfig(clinicId, config) {
         this.config.multiTenant.clinicConfigs[clinicId] = {
@@ -156,11 +116,9 @@ try {
 } catch (error) {
     // Cria uma instância de fallback
     window.appConfig = {
-        getWebhookURL: (service) => {
-            return null;
-        },
-        shouldUseSupabase: () => false,
-        getFallbackConfig: () => ({ enableFallback: false })
+        getConfig: () => ({}),
+        getCurrentClinicId: () => 'clinica-padrao',
+        getClinicConfig: () => null
     };
 }
 

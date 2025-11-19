@@ -38,35 +38,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- LÓGICA DO BOTÃO VOLTAR INTELIGENTE ---
     const backButton = document.getElementById('back-to-map-btn');
-    if (backButton) {
-        const params = new URLSearchParams(window.location.search);
-        const origin = params.get('origin'); // Lê o parâmetro 'origin' da URL
+    const navMapLink = document.getElementById('nav-map-link');
+    const navMapLabel = document.getElementById('nav-map-label');
 
-        if (origin === 'corpo') {
-            backButton.href = 'corpo.html'; // Muda o link para o mapa corporal
+    const urlParams = new URLSearchParams(window.location.search);
+    const origin = urlParams.get('origin'); // Lê o parâmetro 'origin' da URL
+    const view = urlParams.get('view'); // Lê o parâmetro 'view' da URL (posterior, anterior, etc.)
+    const viewParam = view ? `?view=${encodeURIComponent(view)}` : '';
+
+    if (origin === 'corpo') {
+        if (backButton) {
+            backButton.href = `corpo.html${viewParam}`; // Muda o link para o mapa corporal
             backButton.textContent = '← Voltar para o Mapa Corporal'; // Muda o texto
-        } else {
-            // Se não for 'corpo' ou se não houver 'origin', o padrão é voltar para o rosto
-            backButton.href = 'index.html';
+        }
+        if (navMapLink) {
+            navMapLink.href = `corpo.html${viewParam}`;
+        }
+        if (navMapLabel) {
+            navMapLabel.textContent = 'Mapa Corporal';
+        }
+    } else {
+        if (backButton) {
+            backButton.href = 'rosto.html';
             backButton.textContent = '← Voltar para o Mapa Facial';
+        }
+        if (navMapLink) {
+            navMapLink.href = 'rosto.html';
+        }
+        if (navMapLabel) {
+            navMapLabel.textContent = 'Mapa Facial';
         }
     }
 
 // O resto do seu código do tratamento.js continua abaixo...
 
     // --- LÓGICA PARA MONTAR A PÁGINA ---
-    const params = new URLSearchParams(window.location.search);
-    const areaKey = params.get('area');
+    const areaKey = urlParams.get('area');
 
     const mainTitle = document.getElementById('treatment-main-title');
     const container = document.getElementById('treatments-container');
     const complaintsList = document.getElementById('complaints-list');
     const cardTemplate = document.getElementById('treatment-card-template');
 
-    // Função para enviar o interesse - desabilitada
-    async function sendInterestToN8N(treatmentName) {
-        return false;
-    }
     
     // Monta os cards de tratamento
     if (areaKey && dadosClinica[areaKey]) {

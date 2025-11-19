@@ -1,6 +1,5 @@
 // js/corpo.js ou js/corpo-superior.js (VERSÃO FINAL E CORRIGIDA)
 
-// Funções de webhook removidas
 
 document.addEventListener('DOMContentLoaded', () => {
     
