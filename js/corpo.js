@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!loadingOverlay) return;
 
         // Controle de tempo mínimo de loading
-        const minLoadingTime = 200; // 800ms mínimo
+        const minLoadingTime = 0; // 800ms mínimo
         const loadingStartTime = Date.now();
         let imageLoaded = false;
 
