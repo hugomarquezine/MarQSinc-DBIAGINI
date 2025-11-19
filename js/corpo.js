@@ -55,23 +55,79 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMapWithSelectedAreas();
     });
     
-    // --- LÓGICA DE TROCA DE IMAGEM POR GÊNERO ---
+    // --- LÓGICA DE CARREGAMENTO DAS IMAGENS DO CORPO COM LOADING ---
     const patientGender = (localStorage.getItem('currentPatientGender') || localStorage.getItem('patientGender') || '').toLowerCase();
     const frontImage = document.getElementById('body-front-image');
     const backImage = document.getElementById('body-back-image');
-    const bodyContainers = document.querySelectorAll('.body-part-container');
+    const frontContainer = document.querySelector('#front-view-content .face-map-container');
+    const backContainer = document.querySelector('#back-view-content .face-map-container');
 
-    if (frontImage && backImage && bodyContainers.length > 0) {
-        if (patientGender === 'masculino') {
-            frontImage.src = 'images/corpo/corpo-frente-masculino.webp';
-            backImage.src = 'images/corpo/corpo-costas-masculino.webp';
-            bodyContainers.forEach(container => container.classList.add('gender-male'));
-        } else {
-            frontImage.src = 'images/corpo/corpo-frente-feminino.webp';
-            backImage.src = 'images/corpo/corpo-costas-feminino.webp';
-            bodyContainers.forEach(container => container.classList.add('gender-female'));
+    // Função para configurar loading de uma imagem
+    const setupImageLoading = (imageElement, containerElement, imageSrc) => {
+        if (!imageElement || !containerElement || !imageSrc) return;
+
+        const loadingOverlay = containerElement.querySelector('.image-loading-overlay');
+        if (!loadingOverlay) return;
+
+        // Função para mostrar loading
+        const showLoading = () => {
+            loadingOverlay.classList.remove('hidden');
+        };
+
+        // Função para esconder loading
+        const hideLoading = () => {
+            loadingOverlay.classList.add('hidden');
+        };
+
+        // Inicia o loading
+        showLoading();
+
+        // Handlers para o carregamento da imagem
+        const handleImageLoad = () => {
+            hideLoading();
+            imageElement.removeEventListener('load', handleImageLoad);
+            imageElement.removeEventListener('error', handleImageError);
+        };
+
+        const handleImageError = () => {
+            hideLoading();
+            imageElement.removeEventListener('load', handleImageLoad);
+            imageElement.removeEventListener('error', handleImageError);
+            // Pode adicionar lógica de erro aqui se necessário
+        };
+
+        // Adiciona os event listeners
+        imageElement.addEventListener('load', handleImageLoad);
+        imageElement.addEventListener('error', handleImageError);
+
+        // Define o src da imagem (isso dispara o carregamento)
+        imageElement.src = imageSrc;
+
+        // Verifica se a imagem já estava em cache
+        if (imageElement.complete && imageElement.naturalWidth > 0) {
+            hideLoading();
+            imageElement.removeEventListener('load', handleImageLoad);
+            imageElement.removeEventListener('error', handleImageError);
         }
-    }
+    };
+
+    // Define o gênero dos containers
+    const genderClass = patientGender === 'masculino' ? 'gender-male' : 'gender-female';
+    if (frontContainer) frontContainer.classList.add(genderClass);
+    if (backContainer) backContainer.classList.add(genderClass);
+
+    // Define as imagens baseadas no gênero
+    const frontImageSrc = patientGender === 'masculino'
+        ? 'images/corpo/corpo-frente-masculino.webp'
+        : 'images/corpo/corpo-frente-feminino.webp';
+
+    const backImageSrc = patientGender === 'masculino'
+        ? 'images/corpo/corpo-costas-masculino.webp'
+        : 'images/corpo/corpo-costas-feminino.webp';
+
+    // Configura o loading para ambas as imagens
+    setupImageLoading(frontImage, frontContainer, frontImageSrc);
+    setupImageLoading(backImage, backContainer, backImageSrc);
 
     // --- LÓGICA DE ALTERNÂNCIA FRENTE/COSTAS ---
     const showFrontBtn = document.getElementById('show-front-btn');

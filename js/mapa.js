@@ -82,18 +82,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO MAPA FACIAL (EXISTENTE E FUNCIONAL) ---
+    // --- LÓGICA DO MAPA FACIAL COM LOADING ---
     const patientGender = (localStorage.getItem('currentPatientGender') || localStorage.getItem('patientGender') || '').toLowerCase();
     const faceImage = document.getElementById('face-map-image');
-    const faceContainer = document.querySelector('#face-map-content .face-map-container'); 
-    
-    if (faceImage && faceContainer) {
-        if (patientGender === 'masculino') {
-            faceImage.src = 'images/rosto/rosto-principal-masculino.webp';
-            faceContainer.classList.add('gender-male');
-        } else {
-            faceImage.src = 'images/rosto/rosto-principal-feminino.webp';
-            faceContainer.classList.add('gender-female');
+    const faceContainer = document.querySelector('#face-map-content .face-map-container');
+    const loadingOverlay = faceContainer?.querySelector('.image-loading-overlay');
+
+    if (faceImage && faceContainer && loadingOverlay) {
+        // Função para mostrar loading
+        const showLoading = () => {
+            loadingOverlay.classList.remove('hidden');
+        };
+
+        // Função para esconder loading
+        const hideLoading = () => {
+            loadingOverlay.classList.add('hidden');
+        };
+
+        // Inicia o loading
+        showLoading();
+
+        // Define o gênero do container
+        const genderClass = patientGender === 'masculino' ? 'gender-male' : 'gender-female';
+        faceContainer.classList.add(genderClass);
+
+        // Define a imagem baseada no gênero
+        const imageSrc = patientGender === 'masculino'
+            ? 'images/rosto/rosto-principal-masculino.webp'
+            : 'images/rosto/rosto-principal-feminino.webp';
+
+        // Handlers para o carregamento da imagem
+        const handleImageLoad = () => {
+            hideLoading();
+            faceImage.removeEventListener('load', handleImageLoad);
+            faceImage.removeEventListener('error', handleImageError);
+        };
+
+        const handleImageError = () => {
+            hideLoading();
+            faceImage.removeEventListener('load', handleImageLoad);
+            faceImage.removeEventListener('error', handleImageError);
+            // Pode adicionar lógica de erro aqui se necessário
+        };
+
+        // Adiciona os event listeners
+        faceImage.addEventListener('load', handleImageLoad);
+        faceImage.addEventListener('error', handleImageError);
+
+        // Define o src da imagem (isso dispara o carregamento)
+        faceImage.src = imageSrc;
+
+        // Verifica se a imagem já estava em cache
+        if (faceImage.complete && faceImage.naturalWidth > 0) {
+            hideLoading();
+            faceImage.removeEventListener('load', handleImageLoad);
+            faceImage.removeEventListener('error', handleImageError);
         }
     }
     
