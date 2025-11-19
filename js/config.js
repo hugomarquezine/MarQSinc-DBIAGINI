@@ -11,7 +11,7 @@ class AppConfig {
                     'clinica-1': {
                         name: 'Clínica Exemplo 1',
                         settings: {
-                            primaryColor: '#008080',
+                            primaryColor: '#FFFFFF',
                             secondaryColor: '#FF6B6B',
                             logo: 'images/logo-clinica-1.png'
                         }
