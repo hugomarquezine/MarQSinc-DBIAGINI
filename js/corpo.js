@@ -69,32 +69,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingOverlay = containerElement.querySelector('.image-loading-overlay');
         if (!loadingOverlay) return;
 
-        // Controle de tempo mínimo de loading
-        const minLoadingTime = 0; // 800ms mínimo
-        const loadingStartTime = Date.now();
-        let imageLoaded = false;
+        let loadingTimeout;
 
-        // Função para mostrar loading
+        // Função para mostrar loading (com delay de 150ms)
         const showLoading = () => {
-            loadingOverlay.classList.remove('hidden');
+            loadingTimeout = setTimeout(() => {
+                loadingOverlay.classList.remove('hidden');
+            }, 150);
         };
 
-        // Função para esconder loading com delay mínimo
+        // Função para esconder loading
         const hideLoading = () => {
-            const elapsedTime = Date.now() - loadingStartTime;
-            const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
-            
-            setTimeout(() => {
-                loadingOverlay.classList.add('hidden');
-            }, remainingTime);
+            if (loadingTimeout) {
+                clearTimeout(loadingTimeout);
+            }
+            loadingOverlay.classList.add('hidden');
         };
-
-        // Inicia o loading
-        showLoading();
 
         // Handlers para o carregamento da imagem
         const handleImageLoad = () => {
-            imageLoaded = true;
             imageElement.classList.add('loaded');
             hideLoading();
             imageElement.removeEventListener('load', handleImageLoad);
@@ -102,12 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const handleImageError = () => {
-            imageLoaded = true;
             imageElement.classList.add('loaded');
             hideLoading();
             imageElement.removeEventListener('load', handleImageLoad);
             imageElement.removeEventListener('error', handleImageError);
-            // Pode adicionar lógica de erro aqui se necessário
         };
 
         // Adiciona os event listeners
@@ -117,13 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Define o src da imagem (isso dispara o carregamento)
         imageElement.src = imageSrc;
 
-        // Verifica se a imagem já estava em cache
+        // Verifica se a imagem já estava em cache DEPOIS de definir o src
         if (imageElement.complete && imageElement.naturalWidth > 0) {
-            imageLoaded = true;
+            // Imagem já carregada - não mostra loading
             imageElement.classList.add('loaded');
             hideLoading();
             imageElement.removeEventListener('load', handleImageLoad);
             imageElement.removeEventListener('error', handleImageError);
+        } else {
+            // Imagem não está pronta - inicia loading com delay
+            showLoading();
         }
     };
 

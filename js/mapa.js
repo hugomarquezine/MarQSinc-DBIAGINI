@@ -89,28 +89,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = faceContainer?.querySelector('.image-loading-overlay');
 
     if (faceImage && faceContainer && loadingOverlay) {
-        // Controle de tempo mínimo de loading
-        const minLoadingTime = 0; // 800ms mínimo
-        const loadingStartTime = Date.now();
-        let imageLoaded = false;
+        let loadingTimeout;
 
-        // Função para mostrar loading
+        // Função para mostrar loading (com delay de 150ms)
         const showLoading = () => {
-            loadingOverlay.classList.remove('hidden');
+            loadingTimeout = setTimeout(() => {
+                loadingOverlay.classList.remove('hidden');
+            }, 150);
         };
 
-        // Função para esconder loading com delay mínimo
+        // Função para esconder loading
         const hideLoading = () => {
-            const elapsedTime = Date.now() - loadingStartTime;
-            const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
-            
-            setTimeout(() => {
-                loadingOverlay.classList.add('hidden');
-            }, remainingTime);
+            if (loadingTimeout) {
+                clearTimeout(loadingTimeout);
+            }
+            loadingOverlay.classList.add('hidden');
         };
-
-        // Inicia o loading
-        showLoading();
 
         // Define o gênero do container
         const genderClass = patientGender === 'masculino' ? 'gender-male' : 'gender-female';
@@ -123,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Handlers para o carregamento da imagem
         const handleImageLoad = () => {
-            imageLoaded = true;
             faceImage.classList.add('loaded');
             hideLoading();
             faceImage.removeEventListener('load', handleImageLoad);
@@ -131,12 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const handleImageError = () => {
-            imageLoaded = true;
             faceImage.classList.add('loaded');
             hideLoading();
             faceImage.removeEventListener('load', handleImageLoad);
             faceImage.removeEventListener('error', handleImageError);
-            // Pode adicionar lógica de erro aqui se necessário
         };
 
         // Adiciona os event listeners
@@ -146,13 +137,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Define o src da imagem (isso dispara o carregamento)
         faceImage.src = imageSrc;
 
-        // Verifica se a imagem já estava em cache
+        // Verifica se a imagem já estava em cache DEPOIS de definir o src
         if (faceImage.complete && faceImage.naturalWidth > 0) {
-            imageLoaded = true;
+            // Imagem já carregada - não mostra loading
             faceImage.classList.add('loaded');
             hideLoading();
             faceImage.removeEventListener('load', handleImageLoad);
             faceImage.removeEventListener('error', handleImageError);
+        } else {
+            // Imagem não está pronta - inicia loading com delay
+            showLoading();
         }
     }
     

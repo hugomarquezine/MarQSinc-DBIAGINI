@@ -16,6 +16,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="B.Clinique">
     <link rel="apple-touch-icon" href="images/logo-192.png">
+    
+    <!-- Preload das imagens críticas -->
+    <script>
+        const gender = (localStorage.getItem('currentPatientGender') || localStorage.getItem('patientGender') || '').toLowerCase();
+        const frontImg = gender === 'masculino' ? 'images/corpo/corpo-frente-masculino.webp' : 'images/corpo/corpo-frente-feminino.webp';
+        const backImg = gender === 'masculino' ? 'images/corpo/corpo-costas-masculino.webp' : 'images/corpo/corpo-costas-feminino.webp';
+        document.write('<link rel="preload" as="image" href="' + frontImg + '" fetchpriority="high">');
+        document.write('<link rel="preload" as="image" href="' + backImg + '">');
+    </script>
 </head>
 <body class="body-map" style="background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('images/VERTpattern.webp'); background-repeat: repeat; background-attachment: fixed; background-position: top left; background-size: 350px;"> 
     <script>
