@@ -89,14 +89,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = faceContainer?.querySelector('.image-loading-overlay');
 
     if (faceImage && faceContainer && loadingOverlay) {
+        // Controle de tempo mínimo de loading
+        const minLoadingTime = 200; // 800ms mínimo
+        const loadingStartTime = Date.now();
+        let imageLoaded = false;
+
         // Função para mostrar loading
         const showLoading = () => {
             loadingOverlay.classList.remove('hidden');
         };
 
-        // Função para esconder loading
+        // Função para esconder loading com delay mínimo
         const hideLoading = () => {
-            loadingOverlay.classList.add('hidden');
+            const elapsedTime = Date.now() - loadingStartTime;
+            const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+            
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+            }, remainingTime);
         };
 
         // Inicia o loading
@@ -113,12 +123,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Handlers para o carregamento da imagem
         const handleImageLoad = () => {
+            imageLoaded = true;
+            faceImage.classList.add('loaded');
             hideLoading();
             faceImage.removeEventListener('load', handleImageLoad);
             faceImage.removeEventListener('error', handleImageError);
         };
 
         const handleImageError = () => {
+            imageLoaded = true;
+            faceImage.classList.add('loaded');
             hideLoading();
             faceImage.removeEventListener('load', handleImageLoad);
             faceImage.removeEventListener('error', handleImageError);
@@ -134,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Verifica se a imagem já estava em cache
         if (faceImage.complete && faceImage.naturalWidth > 0) {
+            imageLoaded = true;
+            faceImage.classList.add('loaded');
             hideLoading();
             faceImage.removeEventListener('load', handleImageLoad);
             faceImage.removeEventListener('error', handleImageError);

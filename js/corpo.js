@@ -69,14 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingOverlay = containerElement.querySelector('.image-loading-overlay');
         if (!loadingOverlay) return;
 
+        // Controle de tempo mínimo de loading
+        const minLoadingTime = 200; // 800ms mínimo
+        const loadingStartTime = Date.now();
+        let imageLoaded = false;
+
         // Função para mostrar loading
         const showLoading = () => {
             loadingOverlay.classList.remove('hidden');
         };
 
-        // Função para esconder loading
+        // Função para esconder loading com delay mínimo
         const hideLoading = () => {
-            loadingOverlay.classList.add('hidden');
+            const elapsedTime = Date.now() - loadingStartTime;
+            const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+            
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+            }, remainingTime);
         };
 
         // Inicia o loading
@@ -84,12 +94,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Handlers para o carregamento da imagem
         const handleImageLoad = () => {
+            imageLoaded = true;
+            imageElement.classList.add('loaded');
             hideLoading();
             imageElement.removeEventListener('load', handleImageLoad);
             imageElement.removeEventListener('error', handleImageError);
         };
 
         const handleImageError = () => {
+            imageLoaded = true;
+            imageElement.classList.add('loaded');
             hideLoading();
             imageElement.removeEventListener('load', handleImageLoad);
             imageElement.removeEventListener('error', handleImageError);
@@ -105,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Verifica se a imagem já estava em cache
         if (imageElement.complete && imageElement.naturalWidth > 0) {
+            imageLoaded = true;
+            imageElement.classList.add('loaded');
             hideLoading();
             imageElement.removeEventListener('load', handleImageLoad);
             imageElement.removeEventListener('error', handleImageError);

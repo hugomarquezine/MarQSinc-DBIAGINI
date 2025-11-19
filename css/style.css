@@ -72,14 +72,31 @@ body {
 .logout-button { margin-top: 3rem; background: none; border: none; color: #888; text-decoration: underline; cursor: pointer; }
 
 /* --- Tela do Mapa Facial (já criada) --- */
-.app-container { width: 100%; max-width: 900px; background-color: #ffffff; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
+.app-container { width: 100%; max-width: 900px; background-color: #transparent; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
 /* ESSE -mapa FAZ COM QUE A TELA DO ROSTO FIQUE MENOR, SEM SEGUIR O TAMANHO DO ROSTO*/
 .app-container-mapa { width: 100%; max-width: 900px; background-color: transparent; border-radius: 20px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); padding: 1rem; box-sizing: border-box; }
 
 .app-header { text-align: center; margin-top: 1rem; }
 .title { font-size: 1.5rem; font-weight: 400; color: #555; }
-.face-map-container { position: relative; width: fit-content; margin: auto; }
-.face-image { display: block; max-width: 100%; border-radius: 15px; }
+.face-map-container { 
+    position: relative; 
+    width: fit-content; 
+    margin: auto;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.face-image { 
+    display: block; 
+    max-width: 100%; 
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.face-image.loaded {
+    opacity: 1;
+}
 
 /* Loading Overlay para Imagens */
 .image-loading-overlay {
