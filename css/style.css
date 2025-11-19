@@ -245,11 +245,11 @@ body {
     transform: translateX(-50%);
 }
 @keyframes pulse { 0%   { box-shadow: 0 0 0 0 rgba(89, 121, 93, 0.6); } 70%  { box-shadow: 0 0 0 12px rgba(0, 128, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); } }
-.bottom-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+.bottom-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 0.8rem; padding-top: 0.8rem; padding-bottom: 0.4rem; border-top: 1px solid #eee; }
 #nav-rosto { display: flex; justify-content: center; gap: 2rem; margin-top: 0rem; padding-top: 0.5rem; border-top: 1px solid #eee; }
 
 /* Estilos NAV */
-.nav-item { text-decoration: none; color: #888; font-size: 1.2rem; font-weight: 600; padding: 10px 20px; border-radius: 30px; transition: background-color 0.3s, color 0.3s; }
+.nav-item { text-decoration: none; color: #888; font-size: 0.9rem; font-weight: 600; padding: 6px 14px; border-radius: 30px; transition: background-color 0.3s, color 0.3s; }
 .nav-item:hover { color: #3d3d3d; }
 .nav-item.active { color: rgb(0, 0, 0); background-color: #f3f3f3b0; border:#cfcfcf 2px solid;}
 
@@ -932,7 +932,7 @@ color: #4C5656;
     /*max-width: 900px;  Mantém a mesma largura do container */
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 0px;
+    padding: 6px 0px;
 /* NAV transparente e fixada no bottom - para pagina skincare */
     position: fixed;
     bottom: 0;
@@ -959,7 +959,7 @@ color: #4C5656;
     /*max-width: 900px;  Mantém a mesma largura do container */
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 0px;
+    padding: 6px 0px;
 /* NAV transparente e fixada no bottom - para pagina skincare */
     position: fixed;
     bottom: 0;
@@ -1052,7 +1052,7 @@ color: #4C5656;
     /*max-width: 900px;  Mantém a mesma largura do container */
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 0px;
+    padding: 6px 0px;
 /* NAV transparente e fixada no bottom - para pagina skincare */
     position: fixed;
     bottom: 0;
@@ -1118,7 +1118,7 @@ color: #4C5656;
     /*max-width: 900px;  Mantém a mesma largura do container */
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 0px;
+    padding: 6px 0px;
 /* NAV transparente e fixada no bottom - para pagina skincare */
     position: fixed;
     bottom: 0;
@@ -1314,7 +1314,7 @@ color: #4C5656;
     position: static; /* Remove a necessidade de ser fixo, pois o body já organiza */
     flex-shrink: 0; /* Impede que a barra encolha */
     border-top: 1px solid #e0e0e0;
-    padding: 10px ;
+    padding: 6px ;
     }
 
 /* NAV fixo para páginas de mapa */
