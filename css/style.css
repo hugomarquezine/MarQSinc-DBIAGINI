@@ -251,8 +251,13 @@ body {
 /* Estilos NAV */
 .nav-item { text-decoration: none; color: #888; font-size: 0.9rem; font-weight: 600; padding: 6px 14px; border-radius: 30px; transition: background-color 0.3s, color 0.3s; }
 .nav-item:hover { color: #3d3d3d; }
-.nav-item.active { color: rgb(0, 0, 0); background-color: #f3f3f3b0; border:#cfcfcf 2px solid;}
-
+.nav-item.active { 
+  color: rgb(0, 0, 0); 
+  background-color: rgba(243, 243, 243, 0.5); 
+  border: 1px solid rgba(207, 207, 207, 0.4);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
 /* --- Estilos do Modal Customizado --- */
 .modal-overlay {
   position: fixed; /* Fica fixo na tela */
