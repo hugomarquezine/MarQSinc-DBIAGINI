@@ -93,7 +93,9 @@ body {
     border-radius: 15px;
     opacity: 0;
     transition: opacity 0.3s ease;
+    min-height: 500px; /* ajuste se quiser maior/menor */
 }
+
 .face-image.loaded {
     opacity: 1;
 }
@@ -167,8 +169,43 @@ body {
     to { transform: rotate(360deg); }
 }
 
-.interactive-dot { position: absolute; width: 15px; height: 15px; background-color: #6c886f8f; border: 2px solid white; border-radius: 50%; cursor: pointer; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; animation: pulse 2s infinite ease-in-out; }
-.interactive-dot:hover { transform: scale(1.3); box-shadow: 0 0 15px #6e786fa8; animation-play-state: paused; }
+/* Área de clique aumentada sem alterar o design visual */
+.interactive-dot {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: transparent; /* Área de clique transparente */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    /* Área de clique aumentada sem alterar visual */
+    min-width: 35px;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Visual pequeno no pseudo-elemento */
+.interactive-dot::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #6c886f8f;
+    border: 2px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    animation: pulse 2s infinite ease-in-out;
+}
 
 /* --- Posições dos Pontos - Versão Dinâmica por Gênero --- */
 
@@ -212,8 +249,8 @@ body {
 .gender-female .dot-abdomen {top: 26.4%; left: 50.8%;}
 .gender-female .dot-bracos {top: 18%; left: 62.3%;}
 .gender-female .dot-maos {top: 43.4%;left: 65%;}
-.gender-female .dot-pernas {top: 61.3%; left: 54.7%;}
-.gender-female .dot-axila {top: 9.8%; left: 29.6%;}
+.gender-female .dot-pernas {top: 65.3%; left: 54.7%;}
+.gender-female .dot-axila {top: 8.9%; left: 29.6%;}
 .gender-female .dot-gordura-sutia {top: 9.8%; left: 59.3%;}
 .gender-female .dot-coxa-anterior {top: 55%; left: 54.7%;}
 
@@ -243,6 +280,12 @@ body {
 /* Regra geral para centralizar todos os pontos horizontalmente */
 .interactive-dot {
     transform: translateX(-50%);
+}
+
+.interactive-dot:hover::before {
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 15px #6e786fa8;
+    animation-play-state: paused;
 }
 @keyframes pulse { 0%   { box-shadow: 0 0 0 0 rgba(89, 121, 93, 0.6); } 70%  { box-shadow: 0 0 0 12px rgba(0, 128, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); } }
 .bottom-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 0.8rem; padding-top: 0.8rem; padding-bottom: 0.4rem; border-top: 1px solid #eee; }
@@ -2451,30 +2494,30 @@ textarea.text-input {
 }
 
 /* Destaque para áreas selecionadas nos mapas */
-.interactive-dot.selected-highlight {
-    background-color: var(--cor-primaria) !important;
+.interactive-dot.selected-highlight::before {
+    background-color: #6e786f !important;
     border: 3px solid #fff !important;
-    box-shadow: 0 0 15px rgba(71, 220, 96, 0.6) !important;
+    box-shadow: 0 0 15px rgba(110, 120, 111, 0.6) !important;
     animation: pulse-selected 2s infinite;
 }
 
 @keyframes pulse-selected {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
 }
 
 /* Estilos para pontos selecionados na tela de seleção */
-.interactive-dot.selected {
+.interactive-dot.selected::before {
     background-color: #28a745 !important; /* Verde para indicar selecionado */
     border: 3px solid #fff !important;
     box-shadow: 0 0 15px rgba(40, 167, 69, 0.8) !important;
-    transform: scale(1.05); /* Crescimento mais sutil */
+    transform: translate(-50%, -50%) scale(1.05); /* Crescimento mais sutil */
 }
 
 /* Estilos para pontos não selecionados na tela de seleção */
-.selecao-rosto .interactive-dot:not(.selected),
-.selecao-corpo .interactive-dot:not(.selected) {
+.selecao-rosto .interactive-dot:not(.selected)::before,
+.selecao-corpo .interactive-dot:not(.selected)::before {
     background-color: #706f6f !important; /* Cinza para não selecionados */
     border: 3px solid #ffffff !important;
     opacity: 0.6; /* Menos opacidade */
@@ -2495,16 +2538,16 @@ textarea.text-input {
 }
 
 /* Hover para pontos não selecionados */
-.selecao-rosto .interactive-dot:not(.selected):hover,
-.selecao-corpo .interactive-dot:not(.selected):hover {
+.selecao-rosto .interactive-dot:not(.selected):hover::before,
+.selecao-corpo .interactive-dot:not(.selected):hover::before {
     opacity: 0.8; /* Aumenta opacidade no hover */
-    transform: scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
     box-shadow: 0 0 10px rgba(153, 153, 153, 0.5);
     animation-play-state: paused;
 }
 
 /* Estilos para pontos não selecionados nos mapas (rosto.html e corpo.html) */
-.interactive-dot.not-selected {
+.interactive-dot.not-selected::before {
     background-color: #888888 !important; /* Cinza para não selecionados */
     border: 3px solid #ffffff !important;
     opacity: 0.6; /* Menos opacidade */
@@ -2512,9 +2555,9 @@ textarea.text-input {
 }
 
 /* Hover para pontos não selecionados nos mapas */
-.interactive-dot.not-selected:hover {
+.interactive-dot.not-selected:hover::before {
     opacity: 0.8; /* Aumenta opacidade no hover */
-    transform: scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
     box-shadow: 0 0 10px rgba(112, 111, 111, 0.5);
     animation-play-state: paused;
 }
